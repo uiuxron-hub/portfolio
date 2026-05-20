@@ -12,6 +12,7 @@ Use semantic tokens instead of raw values:
 - `secondary`, `secondary-foreground`
 - `muted`, `muted-foreground`
 - `accent`, `accent-foreground`
+- `available`
 - `border`, `hairline`, `input`, `ring`
 - `matcha`, `matcha-soft`
 - `destructive`, `destructive-foreground`

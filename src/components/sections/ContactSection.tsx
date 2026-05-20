@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { Reveal } from "@/components/site/Reveal";
@@ -25,20 +26,21 @@ export function ContactSection() {
                 <span>uiuxron@gmail.com</span>
                 <ArrowUpRight className="motion-arrow size-4 group-hover:-translate-y-0.5" />
               </a>
-              <span
-                aria-disabled="true"
-                title="LinkedIn URL pending"
-                className="inline-flex cursor-not-allowed items-center gap-2 rounded-full border hairline px-5 py-3 text-sm text-muted-foreground opacity-70"
+              <a
+                href="https://www.linkedin.com/in/rlguerra/"
+                target="_blank"
+                rel="noreferrer"
+                className="motion-button group inline-flex items-center gap-2 rounded-full border hairline px-5 py-3 text-sm text-muted-foreground hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
-                LinkedIn
-              </span>
-              <span
-                aria-disabled="true"
-                title="Resume PDF pending"
-                className="inline-flex cursor-not-allowed items-center gap-2 rounded-full border hairline px-5 py-3 text-sm text-muted-foreground opacity-70"
+                <span>LinkedIn</span>
+                <ArrowUpRight className="motion-arrow size-4 group-hover:-translate-y-0.5" />
+              </a>
+              <Link
+                to="/resume"
+                className="motion-button inline-flex items-center gap-2 rounded-full border hairline px-5 py-3 text-sm text-muted-foreground hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 Resume (PDF)
-              </span>
+              </Link>
             </div>
 
             <div className="mt-12 pt-8 border-t hairline grid grid-cols-2 md:grid-cols-4 gap-6 text-sm">

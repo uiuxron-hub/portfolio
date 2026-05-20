@@ -9,13 +9,16 @@ import type {
 } from "@/types/portfolio";
 
 export const expertiseAreas = [
-  "Healthcare Systems",
-  "Operational UX",
-  "Design Systems",
-  "Workflow Architecture",
-  "Enterprise SaaS",
-  "AI-Assisted Workflows",
-  "Frontend Collaboration",
+  { label: "Figma", icon: "figma" },
+  { label: "Adobe XD", icon: "adobexd" },
+  { label: "Photoshop", icon: "adobephotoshop" },
+  { label: "Framer", icon: "framer" },
+  { label: "Visual Studio Code", icon: "visualstudiocode" },
+  { label: "Cursor", icon: "cursor" },
+  { label: "Notion", icon: "notion" },
+  { label: "Canva", icon: "canva" },
+  { label: "Claude", icon: "claude" },
+  { label: "ChatGPT", icon: "openai" },
 ] as const;
 
 export const selectedProjects: ProjectSummary[] = [
@@ -46,10 +49,10 @@ export const selectedProjects: ProjectSummary[] = [
 ];
 
 export const aboutFacts: LabelValue[] = [
-  ["Based", "Remote · Americas timezone"],
-  ["Focus", "Healthcare · Enterprise · SaaS"],
-  ["Tools", "Figma · Linear · Notion · Cursor"],
-  ["Stack", "React · TypeScript · Tailwind"],
+  ["Based", "Philippines · Full Remote"],
+  ["Focus", "Healthcare · SaaS · Enterprise"],
+  ["Tools", "Figma · VS Code · Notion · AI Tools"],
+  ["Front End", "HTML · CSS/SCSS · Tailwind"],
 ] as const;
 
 export const processSteps: ProcessStep[] = [

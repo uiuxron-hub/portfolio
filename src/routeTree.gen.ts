@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjectsMobileOrderingRouteImport } from './routes/projects.mobile-ordering'
 import { Route as ProjectsErpRouteImport } from './routes/projects.erp'
@@ -17,6 +18,11 @@ import { Route as ProjectsErpRouteImport } from './routes/projects.erp'
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResumeRoute = ResumeRouteImport.update({
+  id: '/resume',
+  path: '/resume',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -37,12 +43,14 @@ const ProjectsErpRoute = ProjectsErpRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/resume': typeof ResumeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/projects/erp': typeof ProjectsErpRoute
   '/projects/mobile-ordering': typeof ProjectsMobileOrderingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/resume': typeof ResumeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/projects/erp': typeof ProjectsErpRoute
   '/projects/mobile-ordering': typeof ProjectsMobileOrderingRoute
@@ -50,6 +58,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/resume': typeof ResumeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/projects/erp': typeof ProjectsErpRoute
   '/projects/mobile-ordering': typeof ProjectsMobileOrderingRoute
@@ -58,14 +67,21 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/resume'
     | '/sitemap.xml'
     | '/projects/erp'
     | '/projects/mobile-ordering'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sitemap.xml' | '/projects/erp' | '/projects/mobile-ordering'
+  to:
+    | '/'
+    | '/resume'
+    | '/sitemap.xml'
+    | '/projects/erp'
+    | '/projects/mobile-ordering'
   id:
     | '__root__'
     | '/'
+    | '/resume'
     | '/sitemap.xml'
     | '/projects/erp'
     | '/projects/mobile-ordering'
@@ -73,6 +89,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ResumeRoute: typeof ResumeRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ProjectsErpRoute: typeof ProjectsErpRoute
   ProjectsMobileOrderingRoute: typeof ProjectsMobileOrderingRoute
@@ -85,6 +102,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resume': {
+      id: '/resume'
+      path: '/resume'
+      fullPath: '/resume'
+      preLoaderRoute: typeof ResumeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -113,6 +137,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ResumeRoute: ResumeRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ProjectsErpRoute: ProjectsErpRoute,
   ProjectsMobileOrderingRoute: ProjectsMobileOrderingRoute,
