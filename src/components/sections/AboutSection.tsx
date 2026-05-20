@@ -27,7 +27,7 @@ export function AboutSection() {
 
           <Reveal delay={0.1} className="col-span-12 lg:col-span-7 lg:pt-8">
             <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-3">
-              About — 03
+              About Me
             </p>
             <h2 className="font-serif text-4xl lg:text-5xl tracking-tight leading-[1.05] text-balance">
               I focus on transforming complex workflows into intuitive, scalable

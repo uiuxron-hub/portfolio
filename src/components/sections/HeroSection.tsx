@@ -2,20 +2,26 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import {
   motion,
+  useMotionValueEvent,
   useReducedMotion,
   useScroll,
   useTransform,
 } from "motion/react";
-import { useRef } from "react";
+import { useId, useRef, useState } from "react";
+import type { ReactNode } from "react";
 import heroBanner from "@/assets/hero-banner.png";
 import { Container } from "@/components/layout/Container";
 import { ProgressiveImage } from "@/components/site/ProgressiveImage";
 import { motionEase } from "@/lib/motion";
 
+const heroImageTooltip =
+  "The floating imagery represents the creative headspace I enter while designing — a space driven by curiosity, empathy, systems thinking, and imagination.";
+
 export function HeroSection() {
   const ref = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
+  const [isScrollingDown, setIsScrollingDown] = useState(false);
+  const { scrollY, scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
@@ -27,6 +33,16 @@ export function HeroSection() {
     "into",
     "clarity.",
   ];
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious();
+
+    if (previous === undefined || Math.abs(latest - previous) < 4) {
+      return;
+    }
+
+    setIsScrollingDown(latest > previous);
+  });
 
   return (
     <section ref={ref} className="relative">
@@ -120,13 +136,12 @@ export function HeroSection() {
                 <span>View Projects</span>
                 <ArrowRight className="motion-arrow size-4" />
               </Link>
-              <span
-                aria-disabled="true"
-                title="Resume PDF pending"
-                className="inline-flex cursor-not-allowed items-center gap-2 rounded-full border hairline px-5 py-2.5 text-sm text-muted-foreground opacity-70"
+              <Link
+                to="/resume"
+                className="motion-button inline-flex items-center gap-2 rounded-full border hairline px-5 py-2.5 text-sm text-muted-foreground hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 Resume
-              </span>
+              </Link>
               <Link
                 to="/"
                 hash="contact"
@@ -139,38 +154,131 @@ export function HeroSection() {
           </motion.div>
 
           <div className="col-span-12 lg:col-span-5 relative">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.72,
-                delay: 0.2,
-                ease: motionEase,
-              }}
-              className="relative mx-auto aspect-[4/5] w-full max-w-[520px] lg:aspect-[5/6] lg:max-w-none"
-            >
+            <HeroImageTooltip shouldReduceMotion={Boolean(shouldReduceMotion)}>
               <motion.div
-                animate={shouldReduceMotion ? undefined : { y: [0, -6, 0] }}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  duration: 7,
-                  repeat: Infinity,
-                  ease: "easeInOut",
+                  duration: 0.72,
+                  delay: 0.2,
+                  ease: motionEase,
                 }}
-                className="h-full w-full overflow-hidden"
+                className="relative mx-auto aspect-[4/5] w-full max-w-[520px] lg:aspect-[5/6] lg:max-w-none"
               >
-                <ProgressiveImage
-                  src={heroBanner}
-                  alt="Roland L. Guerra"
-                  width={2568}
-                  height={2364}
-                  imgClassName="h-full w-full object-contain"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />
+                <motion.div
+                  animate={
+                    shouldReduceMotion
+                      ? undefined
+                      : {
+                          y: [0, -6, 0],
+                          rotate: isScrollingDown ? 2.5 : 0,
+                        }
+                  }
+                  transition={{
+                    y: {
+                      duration: 7,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    },
+                    rotate: {
+                      duration: 0.45,
+                      ease: motionEase,
+                    },
+                  }}
+                  className="h-full w-full origin-center overflow-hidden transform-gpu"
+                >
+                  <ProgressiveImage
+                    src={heroBanner}
+                    alt="Roland L. Guerra"
+                    width={2568}
+                    height={2364}
+                    imgClassName="h-full w-full object-contain"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />
+                </motion.div>
               </motion.div>
-            </motion.div>
+            </HeroImageTooltip>
           </div>
         </div>
       </Container>
     </section>
+  );
+}
+
+function HeroImageTooltip({
+  children,
+  shouldReduceMotion,
+}: {
+  children: ReactNode;
+  shouldReduceMotion: boolean;
+}) {
+  const tooltipId = useId();
+  const [tooltip, setTooltip] = useState({
+    visible: false,
+    x: 0,
+    y: 0,
+    horizontal: "right" as "left" | "right",
+    vertical: "bottom" as "top" | "bottom",
+  });
+
+  function updateTooltipPosition(clientX: number, clientY: number) {
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const horizontal = clientX > viewportWidth - 360 ? "left" : "right";
+    const vertical = clientY > viewportHeight - 180 ? "top" : "bottom";
+
+    setTooltip({
+      visible: true,
+      x: clientX,
+      y: clientY,
+      horizontal,
+      vertical,
+    });
+  }
+
+  return (
+    <div
+      className="relative cursor-help focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+      tabIndex={0}
+      aria-describedby={tooltip.visible ? tooltipId : undefined}
+      onPointerEnter={(event) =>
+        updateTooltipPosition(event.clientX, event.clientY)
+      }
+      onPointerMove={(event) =>
+        updateTooltipPosition(event.clientX, event.clientY)
+      }
+      onPointerLeave={() =>
+        setTooltip((current) => ({ ...current, visible: false }))
+      }
+      onFocus={(event) => {
+        const rect = event.currentTarget.getBoundingClientRect();
+        updateTooltipPosition(rect.left + rect.width * 0.55, rect.top + 24);
+      }}
+      onBlur={() => setTooltip((current) => ({ ...current, visible: false }))}
+    >
+      {children}
+      {tooltip.visible ? (
+        <motion.div
+          id={tooltipId}
+          role="tooltip"
+          initial={shouldReduceMotion ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.18, ease: motionEase }}
+          className="pointer-events-none fixed z-[60] max-w-[min(22rem,calc(100vw-2rem))] rounded-lg border hairline bg-background/95 px-4 py-3 text-sm leading-relaxed text-foreground shadow-[0_18px_60px_-40px_var(--color-primary)] backdrop-blur-md"
+          style={{
+            left: tooltip.x,
+            top: tooltip.y,
+            transform: `translate(${
+              tooltip.horizontal === "left" ? "calc(-100% - 16px)" : "16px"
+            }, ${
+              tooltip.vertical === "top" ? "calc(-100% - 16px)" : "16px"
+            })`,
+          }}
+        >
+          {heroImageTooltip}
+        </motion.div>
+      ) : null}
+    </div>
   );
 }

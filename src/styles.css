@@ -33,6 +33,7 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-available: var(--available);
   --color-matcha: var(--matcha);
   --color-matcha-soft: var(--matcha-soft);
   --color-destructive: var(--destructive);
@@ -80,6 +81,8 @@
   --accent: rgba(205, 70, 2, 0.08);
   --accent-foreground: #8a2f00;
 
+  --available: #02cd2b;
+
   /* Backward-compatible accent aliases */
   --matcha: var(--primary);
   --matcha-soft: var(--primary-soft);
@@ -111,6 +114,7 @@
   --muted-foreground: oklch(0.68 0.012 60);
   --accent: oklch(0.24 0.008 60);
   --accent-foreground: oklch(0.96 0.006 85);
+  --available: #02cd2b;
   --matcha: var(--primary);
   --matcha-soft: var(--primary-soft);
   --border: oklch(0.28 0.008 60);

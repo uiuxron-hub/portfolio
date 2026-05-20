@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 
 export function Footer() {
@@ -17,20 +18,20 @@ export function Footer() {
           >
             uiuxron@gmail.com
           </a>
-          <span
-            aria-disabled="true"
-            title="LinkedIn URL pending"
-            className="cursor-not-allowed opacity-70"
+          <a
+            href="https://www.linkedin.com/in/rlguerra/"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-primary transition-colors"
           >
             LinkedIn
-          </span>
-          <span
-            aria-disabled="true"
-            title="Resume PDF pending"
-            className="cursor-not-allowed opacity-70"
+          </a>
+          <Link
+            to="/resume"
+            className="hover:text-primary transition-colors"
           >
             Resume
-          </span>
+          </Link>
           <span>© {new Date().getFullYear()}</span>
         </div>
       </Container>

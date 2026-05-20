@@ -99,9 +99,9 @@ export function Nav() {
           <Link
             to="/"
             hash="contact"
-            className="motion-button inline-flex items-center gap-2 rounded-full border hairline px-3.5 py-1.5 hover:border-primary hover:text-primary"
+            className="motion-button inline-flex items-center gap-2 rounded-full border hairline px-3.5 py-1.5 hover:bg-available/5 hover:border-available/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-matcha" />
+            <span className="h-1.5 w-1.5 rounded-full bg-available" />
             Available
           </Link>
         </nav>
