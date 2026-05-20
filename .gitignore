@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env
+.output/
+.vinxi/
+.wrangler/
+bun.lock
+.DS_Store
+src/.DS_Store
+src/components/.DS_Store
