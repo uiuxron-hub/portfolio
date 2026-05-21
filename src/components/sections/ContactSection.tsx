@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/layout/Container";
+import { SectionHeader } from "@/components/layout/SectionHeader";
 import { Reveal } from "@/components/site/Reveal";
 import { contactDetails } from "@/features/portfolio/content";
 
@@ -10,15 +11,14 @@ export function ContactSection() {
       <Container className="pt-32 lg:pt-44">
         <Reveal>
           <div className="rounded-3xl border hairline bg-card p-8 lg:p-16">
-            <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-6">
-              Contact — 06
-            </p>
-            <h2 className="font-serif text-4xl lg:text-6xl tracking-tight leading-[1.05] text-balance max-w-3xl">
-              Open to remote opportunities, product collaborations, and
-              meaningful digital experiences.
-            </h2>
+            <SectionHeader
+              eyebrow="Contact — 06"
+              title="Open to remote opportunities, product collaborations, and meaningful digital experiences."
+              variant="featured"
+              className="mb-10 block"
+            />
 
-            <div className="mt-10 flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               <a
                 href="mailto:uiuxron@gmail.com"
                 className="motion-button group inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-3 text-sm font-medium hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
