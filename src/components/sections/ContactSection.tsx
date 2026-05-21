@@ -13,7 +13,12 @@ export function ContactSection() {
           <div className="rounded-3xl border hairline bg-card p-8 lg:p-16">
             <SectionHeader
               eyebrow="Contact "
-              title="Looking for meaningful work, thoughtful teams, and products built with purpose."
+              title={
+                <>
+                  Looking for meaningful work, thoughtful teams, and products{" "}
+                  <span className="text-primary">built with purpose</span>.
+                </>
+              }
               variant="featured"
               className="mb-10 block"
             />
