@@ -15,7 +15,7 @@ import { CursorTooltip } from "@/components/ui/tooltip";
 import { motionEase } from "@/lib/motion";
 
 const heroImageTooltip =
-  "The floating imagery represents the creative headspace I enter while designing — a space driven by curiosity, empathy, systems thinking, and imagination.";
+  "The floating imagery reflects how I think while designing.";
 
 export function HeroSection() {
   const ref = useRef<HTMLDivElement>(null);

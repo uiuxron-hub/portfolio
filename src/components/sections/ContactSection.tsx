@@ -1,9 +1,9 @@
-import { Link } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionHeader } from "@/components/layout/SectionHeader";
 import { Reveal } from "@/components/site/Reveal";
-import { contactDetails } from "@/features/portfolio/content";
+
+const simpleIconUrl = (icon: string) =>
+  `https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${icon}.svg`;
 
 export function ContactSection() {
   return (
@@ -12,46 +12,58 @@ export function ContactSection() {
         <Reveal>
           <div className="rounded-3xl border hairline bg-card p-8 lg:p-16">
             <SectionHeader
-              eyebrow="Contact — 06"
-              title="Open to remote opportunities, product collaborations, and meaningful digital experiences."
+              eyebrow="Contact "
+              title="Looking for meaningful work, thoughtful teams, and products built with purpose."
               variant="featured"
               className="mb-10 block"
             />
 
             <div className="flex flex-wrap items-center gap-3">
               <a
-                href="mailto:uiuxron@gmail.com"
-                className="motion-button group inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-3 text-sm font-medium hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=uiuxron@gmail.com"
+                target="_blank"
+                rel="noreferrer"
+                className="motion-button group inline-flex items-center gap-2 rounded-full bg-[#EA4335] px-5 py-3 text-sm font-medium text-white hover:bg-[#D93025] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
+                <img
+                  src={simpleIconUrl("gmail")}
+                  alt=""
+                  width={16}
+                  height={16}
+                  className="size-4 brightness-0 invert"
+                />
                 <span>uiuxron@gmail.com</span>
-                <ArrowUpRight className="motion-arrow size-4 group-hover:-translate-y-0.5" />
               </a>
               <a
                 href="https://www.linkedin.com/in/rlguerra/"
                 target="_blank"
                 rel="noreferrer"
-                className="motion-button group inline-flex items-center gap-2 rounded-full border hairline px-5 py-3 text-sm text-muted-foreground hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="motion-button group inline-flex items-center gap-2 rounded-full bg-[#0A66C2] px-5 py-3 text-sm font-medium text-white hover:bg-[#004182] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
+                <img
+                  src={simpleIconUrl("linkedin")}
+                  alt=""
+                  width={16}
+                  height={16}
+                  className="size-4 brightness-0 invert"
+                />
                 <span>LinkedIn</span>
-                <ArrowUpRight className="motion-arrow size-4 group-hover:-translate-y-0.5" />
               </a>
-              <Link
-                to="/resume"
-                className="motion-button inline-flex items-center gap-2 rounded-full border hairline px-5 py-3 text-sm text-muted-foreground hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              <a
+                href="https://www.behance.net/rlguerra"
+                target="_blank"
+                rel="noreferrer"
+                className="motion-button group inline-flex items-center gap-2 rounded-full bg-[#1769FF] px-5 py-3 text-sm font-medium text-white hover:bg-[#0057FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
-                Resume (PDF)
-              </Link>
-            </div>
-
-            <div className="mt-12 pt-8 border-t hairline grid grid-cols-2 md:grid-cols-4 gap-6 text-sm">
-              {contactDetails.map(([label, value]) => (
-                <div key={label}>
-                  <p className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
-                    {label}
-                  </p>
-                  <p className="mt-1">{value}</p>
-                </div>
-              ))}
+                <img
+                  src={simpleIconUrl("behance")}
+                  alt=""
+                  width={16}
+                  height={16}
+                  className="size-4 brightness-0 invert"
+                />
+                <span>Behance</span>
+              </a>
             </div>
           </div>
         </Reveal>
