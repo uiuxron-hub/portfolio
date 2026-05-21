@@ -1,5 +1,6 @@
 import portrait from "@/assets/portrait-roland.png";
 import { Container } from "@/components/layout/Container";
+import { SectionHeader } from "@/components/layout/SectionHeader";
 import { ProgressiveImage } from "@/components/site/ProgressiveImage";
 import { Reveal } from "@/components/site/Reveal";
 import { aboutFacts } from "@/features/portfolio/content";
@@ -29,16 +30,19 @@ export function AboutSection() {
             delay={0.1}
             className="col-span-12 w-full max-w-xl justify-self-center lg:col-span-6"
           >
-            <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-3">
-              About Me
-            </p>
-            <h2 className="font-serif text-4xl lg:text-5xl tracking-tight leading-[1.05] text-balance">
-              Designing products that make{" "}
-              <span className="text-primary">complex</span> things feel{" "}
-              <span className="text-primary">simple</span>.
-            </h2>
+            <SectionHeader
+              eyebrow="About Me"
+              title={
+                <>
+                  Designing products that make{" "}
+                  <span className="text-primary">complex</span> things feel{" "}
+                  <span className="text-primary">simple</span>.
+                </>
+              }
+              className="mb-10"
+            />
 
-            <div className="mt-10 space-y-5 text-[15px] leading-relaxed text-foreground/80 max-w-xl">
+            <div className="space-y-5 text-[15px] leading-relaxed text-foreground/80 max-w-xl">
               <p>
                 I’m Ron — a Product Designer and UI/UX Engineer with 5 years of
                 experience designing operational systems, enterprise tools, and
