@@ -43,16 +43,11 @@ function ResumePage() {
           <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             <div>
               <div className="mb-5 flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                <span className="h-px w-8 bg-foreground/40" />
                 Resume
               </div>
-              <h1 className="font-serif text-[clamp(2.4rem,5vw,4.75rem)] leading-[1.02] text-balance">
-                Roland L. Guerra
-              </h1>
-              <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-muted-foreground text-pretty">
-                Product Designer and UI/UX Engineer building clear, usable
-                product systems for complex operational workflows.
-              </p>
+              <h2 className="font-serif text-4xl lg:text-5xl tracking-tight leading-[1.05] text-balance">
+                Let’s Collaborate
+              </h2>
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
