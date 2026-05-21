@@ -85,25 +85,27 @@ export const processSteps: ProcessStep[] = [
 
 export const experienceEntries: ExperienceEntry[] = [
   {
-    year: "2024 — Now",
-    role: "Senior Product Designer",
-    org: "Operational SaaS · Remote",
+    year: "2021 — 2026",
+    role: "UI/UX Engineer → Mid UI/UX Engineer",
+    org: "You_Source Inc. · Philippines · Hybrid",
     detail:
-      "Leading workflow + system design across a 6-product platform. Built the design system, embedded AI tooling into research, and shipped weekly with engineering.",
-  },
-  {
-    year: "2022 — 2024",
-    role: "Product Designer / UX Engineer",
-    org: "Enterprise Logistics",
-    detail:
-      "Redesigned the core ERP surface used by 1,200 operators. Replaced fragmented tooling with one unified workspace.",
-  },
-  {
-    year: "2020 — 2022",
-    role: "UI/UX Designer",
-    org: "Healthcare Platform",
-    detail:
-      "Designed clinical workflows and patient-facing modules. Worked closely with compliance and frontend.",
+      "Worked across enterprise systems, operational platforms, internal tools, and consumer-facing products while growing from UI/UX Intern to Mid UI/UX Engineer over 5 years. Focused on workflow optimization, scalable interface systems, developer collaboration, and iterative product improvement across fast-paced product environments.",
+    tags: [
+      "Operational UX",
+      "Workflow Systems",
+      "Design Systems",
+      "Product Collaboration",
+      "UI Engineering",
+    ],
+    progression: [
+      "UI/UX Engineer Intern",
+      "Associate UI/UX Engineer",
+      "Associate UI/UX Engineer 2",
+      "Associate UI/UX Engineer 3",
+      "Associate UI/UX Engineer 4",
+      "Associate UI/UX Engineer 5",
+      "Mid UI/UX Engineer",
+    ],
   },
 ];
 
