@@ -3,6 +3,7 @@ dist/
 .env
 .output/
 .vinxi/
+.vercel/
 .wrangler/
 bun.lock
 .DS_Store
