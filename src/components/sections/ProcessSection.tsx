@@ -161,17 +161,25 @@ export function ProcessSection() {
 
             <div className="relative grid gap-4 lg:grid-cols-4">
               {processPhases.map((phase, index) => (
-                <ProcessPhaseButton
-                  key={phase.id}
-                  phase={phase}
-                  isExpanded={expandedPhase === phase.id}
-                  isLast={index === processPhases.length - 1}
-                  onClick={() =>
-                    setExpandedPhase((current) =>
-                      current === phase.id ? null : phase.id,
-                    )
-                  }
-                />
+                <div key={phase.id} className="contents">
+                  <ProcessPhaseButton
+                    phase={phase}
+                    isExpanded={expandedPhase === phase.id}
+                    isLast={index === processPhases.length - 1}
+                    onClick={() =>
+                      setExpandedPhase((current) =>
+                        current === phase.id ? null : phase.id,
+                      )
+                    }
+                  />
+
+                  {expandedPhase === phase.id ? (
+                    <ProcessDetailPanel
+                      phase={phase}
+                      className="mt-0 lg:hidden"
+                    />
+                  ) : null}
+                </div>
               ))}
             </div>
           </div>
@@ -196,38 +204,58 @@ export function ProcessSection() {
 
         {selectedPhase ? (
           <Reveal delay={0.18}>
-            <div className="mt-6 rounded-2xl border hairline bg-secondary/35 p-4 sm:p-5 lg:p-6">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.18em] text-primary">
-                    {selectedPhase.title}
-                  </p>
-                  <h3 className="mt-2 font-serif text-3xl leading-tight tracking-tight lg:text-4xl">
-                    {selectedPhase.summary}
-                  </h3>
-                </div>
-                {selectedPhase.loop ? (
-                  <div className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 bg-primary-soft px-3 py-1.5 text-xs text-primary-deep">
-                    <RefreshCw className="size-3.5" />
-                    {selectedPhase.loop}
-                  </div>
-                ) : null}
-              </div>
-
-              <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-                {selectedPhase.details.map((detail, index) => (
-                  <ProcessDetailCard
-                    key={detail.title}
-                    detail={detail}
-                    number={String(index + 1).padStart(2, "0")}
-                  />
-                ))}
-              </div>
-            </div>
+            <ProcessDetailPanel
+              phase={selectedPhase}
+              className="mt-6 hidden lg:block"
+            />
           </Reveal>
         ) : null}
       </Container>
     </section>
+  );
+}
+
+function ProcessDetailPanel({
+  phase,
+  className,
+}: {
+  phase: ProcessPhase;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "rounded-2xl border hairline bg-secondary/35 p-4 sm:p-5 lg:p-6",
+        className,
+      )}
+    >
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <p className="text-xs uppercase tracking-[0.18em] text-primary">
+            {phase.title}
+          </p>
+          <h3 className="mt-2 font-serif text-3xl leading-tight tracking-tight lg:text-4xl">
+            {phase.summary}
+          </h3>
+        </div>
+        {phase.loop ? (
+          <div className="inline-flex w-fit shrink-0 items-center gap-2 whitespace-nowrap rounded-full border border-primary/20 bg-primary-soft px-3 py-1.5 text-xs text-primary-deep">
+            <RefreshCw className="size-3.5" />
+            {phase.loop}
+          </div>
+        ) : null}
+      </div>
+
+      <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+        {phase.details.map((detail, index) => (
+          <ProcessDetailCard
+            key={detail.title}
+            detail={detail}
+            number={String(index + 1).padStart(2, "0")}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 

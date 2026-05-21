@@ -28,7 +28,7 @@ export function AboutSection() {
 
           <Reveal
             delay={0.1}
-            className="col-span-12 w-full max-w-xl justify-self-center lg:col-span-6"
+            className="col-span-12 w-full lg:col-span-6 lg:max-w-xl lg:justify-self-center"
           >
             <SectionHeader
               eyebrow="About Me"
@@ -40,9 +40,10 @@ export function AboutSection() {
                 </>
               }
               className="mb-10"
+              contentClassName="max-w-xl"
             />
 
-            <div className="space-y-5 text-[15px] leading-relaxed text-foreground/80 max-w-xl">
+            <div className="max-w-xl space-y-5 text-[15px] leading-relaxed text-foreground/80">
               <p>
                 I’m Ron — a Product Designer and UI/UX Engineer with 5 years of
                 experience designing operational systems, enterprise tools, and
@@ -63,7 +64,7 @@ export function AboutSection() {
               </p>
             </div>
 
-            <div className="mt-12 grid grid-cols-2 gap-y-8 gap-x-6 max-w-xl">
+            <div className="mt-12 grid grid-cols-2 gap-y-8 gap-x-6 lg:max-w-xl">
               {aboutFacts.map(([label, value]) => (
                 <div key={label}>
                   <p className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
