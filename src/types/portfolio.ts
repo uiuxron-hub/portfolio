@@ -21,6 +21,8 @@ export interface ExperienceEntry {
   role: string;
   org: string;
   detail: string;
+  tags?: string[];
+  progression?: string[];
 }
 
 export type LabelValue = readonly [string, string];
