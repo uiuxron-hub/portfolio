@@ -1,8 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
-import type { PointerEvent } from "react";
 import { Container } from "@/components/layout/Container";
-import { SectionHeader } from "@/components/layout/SectionHeader";
 import { ProgressiveImage } from "@/components/site/ProgressiveImage";
 import { Reveal } from "@/components/site/Reveal";
 import { selectedProjects } from "@/features/portfolio/content";
@@ -12,21 +10,20 @@ export function SelectedWorkSection() {
   return (
     <section id="work">
       <Container className="pt-28 lg:pt-40">
-        <Reveal>
-          <SectionHeader
-            eyebrow="Selected Work — 02"
-            title="Projects shipped with care."
-            description="A short selection from enterprise systems to consumer products — chosen for the thinking behind them, not the pixels."
-          />
+        <Reveal className="mb-10 lg:mb-12">
+          <div className="max-w-3xl">
+            <p className="mb-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+              The Work
+            </p>
+            <h2 className="font-serif text-4xl leading-[1.05] tracking-tight text-balance lg:text-5xl">
+              Case study gallery.
+            </h2>
+          </div>
         </Reveal>
 
-        <div className="grid grid-cols-12 gap-6">
+        <div className="grid gap-4 md:grid-cols-2 lg:gap-6">
           {selectedProjects.map((project, index) => (
-            <Reveal
-              key={project.slug}
-              delay={index * 0.1}
-              className={`col-span-12 ${project.span}`}
-            >
+            <Reveal key={project.slug} delay={index * 0.1}>
               <ProjectCard {...project} />
             </Reveal>
           ))}
@@ -39,73 +36,49 @@ export function SelectedWorkSection() {
 function ProjectCard({
   slug,
   title,
-  summary,
-  tags,
+  industry,
   role,
   year,
   image,
-  aspect,
 }: ProjectSummary) {
-  const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    event.currentTarget.style.setProperty(
-      "--cursor-x",
-      `${event.clientX - rect.left}px`,
-    );
-    event.currentTarget.style.setProperty(
-      "--cursor-y",
-      `${event.clientY - rect.top}px`,
-    );
-  };
-
   return (
-    <Link to={slug} className="group/card block rounded-2xl">
-      <div
-        onPointerMove={handlePointerMove}
-        className={`project-card relative ${aspect} overflow-hidden rounded-2xl border hairline bg-secondary`}
-      >
+    <Link
+      to={slug}
+      aria-label={`Open ${title} case study`}
+      className="group/card block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+    >
+      <article className="project-card relative aspect-[4/3] overflow-hidden rounded-2xl border hairline bg-secondary md:aspect-[16/11]">
         <ProgressiveImage
           src={image}
           alt={title}
           loading="lazy"
           width={1600}
           height={1100}
-          imgClassName="h-full w-full object-cover transition-transform duration-[900ms] ease-[var(--ease-editorial)] group-hover/card:scale-[1.018]"
+          imgClassName="h-full w-full object-cover transition-transform duration-[900ms] ease-[var(--ease-editorial)] group-hover/card:scale-[1.035] group-focus-visible/card:scale-[1.035]"
         />
-        <div className="absolute top-4 left-4 right-4 flex items-center justify-between text-xs">
-          <span className="rounded-full bg-background/85 backdrop-blur px-3 py-1 text-foreground transition-transform duration-500 ease-[var(--ease-editorial)] group-hover/card:-translate-y-0.5">
-            {year}
-          </span>
-          <span className="rounded-full bg-background/85 backdrop-blur px-3 py-1 text-muted-foreground inline-flex items-center gap-1.5 transition-all duration-500 ease-[var(--ease-editorial)] group-hover/card:-translate-y-0.5 group-hover/card:text-primary">
-            Case study
-            <ArrowUpRight className="size-3 transition-transform duration-500 ease-[var(--ease-editorial)] group-hover/card:-translate-y-0.5 group-hover/card:translate-x-0.5" />
-          </span>
-        </div>
-      </div>
 
-      <div className="mt-5 grid grid-cols-12 gap-4 transition-transform duration-500 ease-[var(--ease-editorial)] group-hover/card:-translate-y-1">
-        <div className="col-span-12 md:col-span-8">
-          <h3 className="font-serif text-2xl lg:text-[28px] leading-tight tracking-tight">
-            {title}
-          </h3>
-          <p className="mt-2 text-sm text-muted-foreground text-pretty max-w-xl">
-            {summary}
-          </p>
+        <div className="absolute inset-x-4 top-4 z-10 flex items-start justify-between gap-3">
+          <span className="rounded-full bg-background/85 px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-foreground shadow-sm backdrop-blur">
+            {industry}
+          </span>
         </div>
-        <div className="col-span-12 md:col-span-4 space-y-2 md:text-right">
-          <p className="text-xs text-muted-foreground">{role}</p>
-          <div className="flex md:justify-end flex-wrap gap-1.5">
-            {tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-[11px] uppercase tracking-[0.12em] border border-primary/20 rounded-full bg-primary-soft px-2.5 py-0.5 text-primary-deep transition-colors duration-300 ease-[var(--ease-editorial)] group-hover/card:border-primary/35 group-hover/card:text-primary"
-              >
-                {tag}
-              </span>
-            ))}
+
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/72 to-transparent opacity-95 transition-opacity duration-500 ease-[var(--ease-editorial)] md:opacity-0 md:group-hover/card:opacity-100 md:group-focus-visible/card:opacity-100" />
+
+        <div className="absolute inset-x-0 bottom-0 z-10 translate-y-0 p-5 text-foreground transition-transform duration-500 ease-[var(--ease-editorial)] md:translate-y-4 md:p-6 md:opacity-0 md:group-hover/card:translate-y-0 md:group-hover/card:opacity-100 md:group-focus-visible/card:translate-y-0 md:group-focus-visible/card:opacity-100">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <p className="mb-2 text-xs text-muted-foreground">
+                {role} · {year}
+              </p>
+              <h3 className="font-serif text-2xl leading-tight tracking-tight lg:text-[28px]">
+                {title}
+              </h3>
+            </div>
+            <ArrowUpRight className="mb-1 size-5 shrink-0 text-primary transition-transform duration-500 ease-[var(--ease-editorial)] group-hover/card:-translate-y-0.5 group-hover/card:translate-x-0.5" />
           </div>
         </div>
-      </div>
+      </article>
     </Link>
   );
 }

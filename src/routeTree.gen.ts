@@ -12,8 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProjectsWorkflowAutomationRouteImport } from './routes/projects.workflow-automation'
 import { Route as ProjectsMobileOrderingRouteImport } from './routes/projects.mobile-ordering'
 import { Route as ProjectsErpRouteImport } from './routes/projects.erp'
+import { Route as ProjectsDesignSystemRouteImport } from './routes/projects.design-system'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -30,6 +32,12 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsWorkflowAutomationRoute =
+  ProjectsWorkflowAutomationRouteImport.update({
+    id: '/projects/workflow-automation',
+    path: '/projects/workflow-automation',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ProjectsMobileOrderingRoute = ProjectsMobileOrderingRouteImport.update({
   id: '/projects/mobile-ordering',
   path: '/projects/mobile-ordering',
@@ -40,28 +48,39 @@ const ProjectsErpRoute = ProjectsErpRouteImport.update({
   path: '/projects/erp',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsDesignSystemRoute = ProjectsDesignSystemRouteImport.update({
+  id: '/projects/design-system',
+  path: '/projects/design-system',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/resume': typeof ResumeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/projects/design-system': typeof ProjectsDesignSystemRoute
   '/projects/erp': typeof ProjectsErpRoute
   '/projects/mobile-ordering': typeof ProjectsMobileOrderingRoute
+  '/projects/workflow-automation': typeof ProjectsWorkflowAutomationRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/resume': typeof ResumeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/projects/design-system': typeof ProjectsDesignSystemRoute
   '/projects/erp': typeof ProjectsErpRoute
   '/projects/mobile-ordering': typeof ProjectsMobileOrderingRoute
+  '/projects/workflow-automation': typeof ProjectsWorkflowAutomationRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/resume': typeof ResumeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/projects/design-system': typeof ProjectsDesignSystemRoute
   '/projects/erp': typeof ProjectsErpRoute
   '/projects/mobile-ordering': typeof ProjectsMobileOrderingRoute
+  '/projects/workflow-automation': typeof ProjectsWorkflowAutomationRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -69,30 +88,38 @@ export interface FileRouteTypes {
     | '/'
     | '/resume'
     | '/sitemap.xml'
+    | '/projects/design-system'
     | '/projects/erp'
     | '/projects/mobile-ordering'
+    | '/projects/workflow-automation'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/resume'
     | '/sitemap.xml'
+    | '/projects/design-system'
     | '/projects/erp'
     | '/projects/mobile-ordering'
+    | '/projects/workflow-automation'
   id:
     | '__root__'
     | '/'
     | '/resume'
     | '/sitemap.xml'
+    | '/projects/design-system'
     | '/projects/erp'
     | '/projects/mobile-ordering'
+    | '/projects/workflow-automation'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ResumeRoute: typeof ResumeRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ProjectsDesignSystemRoute: typeof ProjectsDesignSystemRoute
   ProjectsErpRoute: typeof ProjectsErpRoute
   ProjectsMobileOrderingRoute: typeof ProjectsMobileOrderingRoute
+  ProjectsWorkflowAutomationRoute: typeof ProjectsWorkflowAutomationRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -118,6 +145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/workflow-automation': {
+      id: '/projects/workflow-automation'
+      path: '/projects/workflow-automation'
+      fullPath: '/projects/workflow-automation'
+      preLoaderRoute: typeof ProjectsWorkflowAutomationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projects/mobile-ordering': {
       id: '/projects/mobile-ordering'
       path: '/projects/mobile-ordering'
@@ -132,6 +166,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsErpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/design-system': {
+      id: '/projects/design-system'
+      path: '/projects/design-system'
+      fullPath: '/projects/design-system'
+      preLoaderRoute: typeof ProjectsDesignSystemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -139,8 +180,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ResumeRoute: ResumeRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ProjectsDesignSystemRoute: ProjectsDesignSystemRoute,
   ProjectsErpRoute: ProjectsErpRoute,
   ProjectsMobileOrderingRoute: ProjectsMobileOrderingRoute,
+  ProjectsWorkflowAutomationRoute: ProjectsWorkflowAutomationRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

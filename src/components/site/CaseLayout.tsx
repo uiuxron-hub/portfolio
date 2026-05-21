@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Container } from "@/components/layout/Container";
 import { PageShell } from "@/components/layout/PageShell";
 import { Reveal } from "@/components/site/Reveal";
+import { cn } from "@/lib/utils";
 
 export function CaseLayout({
   eyebrow,
@@ -12,11 +13,13 @@ export function CaseLayout({
   role,
   year,
   client,
+  metadata,
   heroImage,
   heroAlt,
   children,
   nextSlug,
   nextTitle,
+  nextMeta,
 }: {
   eyebrow: string;
   title: string;
@@ -24,12 +27,20 @@ export function CaseLayout({
   role: string;
   year: string;
   client: string;
+  metadata?: Array<[string, string]>;
   heroImage: string;
   heroAlt: string;
   children: ReactNode;
   nextSlug: string;
   nextTitle: string;
+  nextMeta?: string;
 }) {
+  const caseMetadata = metadata ?? [
+    ["Client", client],
+    ["Role", role],
+    ["Year", year],
+  ];
+
   return (
     <PageShell mainClassName="pt-24">
       <section>
@@ -56,11 +67,7 @@ export function CaseLayout({
               </p>
             </div>
             <div className="col-span-12 lg:col-span-4 grid grid-cols-3 lg:grid-cols-1 gap-4 lg:gap-3 text-sm">
-              {[
-                ["Client", client],
-                ["Role", role],
-                ["Year", year],
-              ].map(([k, v]) => (
+              {caseMetadata.map(([k, v]) => (
                 <div key={k}>
                   <p className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
                     {k}
@@ -72,15 +79,11 @@ export function CaseLayout({
           </div>
 
           <Reveal>
-            <div className="aspect-[16/10] rounded-2xl overflow-hidden border hairline bg-secondary">
-              <img
-                src={heroImage}
-                alt={heroAlt}
-                width={1600}
-                height={1100}
-                className="h-full w-full object-cover"
-              />
-            </div>
+            <CaseImagePlaceholder
+              ariaLabel={heroAlt}
+              source={heroImage}
+              className="aspect-[16/10]"
+            />
           </Reveal>
         </Container>
       </section>
@@ -101,6 +104,11 @@ export function CaseLayout({
                 <h3 className="font-serif text-3xl lg:text-5xl tracking-tight max-w-2xl">
                   {nextTitle}
                 </h3>
+                {nextMeta ? (
+                  <p className="w-full text-sm text-muted-foreground">
+                    {nextMeta}
+                  </p>
+                ) : null}
                 <span className="inline-flex items-center gap-2 text-sm transition-colors group-hover:text-primary">
                   Read
                   <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -153,18 +161,39 @@ export function ImageBand({ src, alt }: { src: string; alt: string }) {
     <section>
       <Container className="pt-16">
         <Reveal>
-          <div className="aspect-[16/9] rounded-2xl overflow-hidden border hairline">
-            <img
-              src={src}
-              alt={alt}
-              loading="lazy"
-              width={1600}
-              height={900}
-              className="h-full w-full object-cover"
-            />
-          </div>
+          <CaseImagePlaceholder
+            ariaLabel={alt}
+            source={src}
+            className="aspect-[16/9]"
+          />
         </Reveal>
       </Container>
     </section>
+  );
+}
+
+export function CaseImagePlaceholder({
+  ariaLabel,
+  source,
+  className,
+}: {
+  ariaLabel: string;
+  source: string;
+  className?: string;
+}) {
+  return (
+    <div
+      role="img"
+      aria-label={ariaLabel}
+      data-source={source}
+      className={cn(
+        "grid place-items-center overflow-hidden rounded-2xl border hairline bg-secondary/50 shadow-[0_24px_80px_-64px_var(--color-primary)]",
+        className,
+      )}
+    >
+      <span className="rounded-full border hairline bg-background/80 px-4 py-2 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+        IN PROGRESS
+      </span>
+    </div>
   );
 }

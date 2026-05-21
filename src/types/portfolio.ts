@@ -2,12 +2,11 @@ export interface ProjectSummary {
   slug: string;
   title: string;
   summary: string;
+  industry: string;
   tags: string[];
   role: string;
   year: string;
   image: string;
-  span: string;
-  aspect: string;
 }
 
 export interface ProcessStep {

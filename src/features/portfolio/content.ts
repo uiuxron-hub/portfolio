@@ -1,6 +1,7 @@
 import designSystem from "@/assets/design-system.jpg";
 import projectErp from "@/assets/project-erp.jpg";
 import projectMatcha from "@/assets/project-matcha.jpg";
+import workflowDiagram from "@/assets/workflow-diagram.jpg";
 import type {
   ExperienceEntry,
   LabelValue,
@@ -24,27 +25,47 @@ export const expertiseAreas = [
 export const selectedProjects: ProjectSummary[] = [
   {
     slug: "/projects/erp",
-    title: "Enterprise ERP System",
+    title: "Rebuilding an operational ERP for 1,200 daily operators.",
     summary:
       "Reimagining an operational workflow for a 1,200-person logistics company. Auditing 40+ screens, designing a unified system, and shipping with engineering.",
+    industry: "Logistics",
     tags: ["Enterprise", "Operational UX", "Design System"],
     role: "UX Engineer · Product UX",
     year: "2024 — 2025",
     image: projectErp,
-    span: "lg:col-span-8",
-    aspect: "aspect-[16/10]",
   },
   {
     slug: "/projects/mobile-ordering",
-    title: "Matcha — Mobile Ordering & Loyalty",
+    title: "Mobile Ordering & Loyalty App",
     summary:
       "Consumer ordering app for a premium matcha brand. Built the delivery/pickup flow, loyalty mechanics, and an e-wallet roadmap for MVP launch.",
+    industry: "Food & Beverage",
     tags: ["Consumer", "Mobile", "Loyalty"],
-    role: "Lead Product Designer",
-    year: "2024",
+    role: "Lead Designer",
+    year: "2025",
     image: projectMatcha,
-    span: "lg:col-span-4",
-    aspect: "aspect-[4/5]",
+  },
+  {
+    slug: "/projects/design-system",
+    title: "A design system for dense operational products.",
+    summary:
+      "A reusable interface foundation for dense internal tools. Defining tokens, component behavior, and documentation patterns for product and engineering teams.",
+    industry: "SaaS",
+    tags: ["Design System", "Components", "Documentation"],
+    role: "UX Engineer · Systems Design",
+    year: "2024",
+    image: designSystem,
+  },
+  {
+    slug: "/projects/workflow-automation",
+    title: "Turning manual handoffs into guided operational flows.",
+    summary:
+      "Turning manual handoffs into guided operational flows. Mapping complex states, exception handling, and approval paths into one coherent workspace.",
+    industry: "Operations",
+    tags: ["Workflow UX", "Automation", "Internal Tools"],
+    role: "Product Designer · UX Strategy",
+    year: "2023 — 2024",
+    image: workflowDiagram,
   },
 ];
 
