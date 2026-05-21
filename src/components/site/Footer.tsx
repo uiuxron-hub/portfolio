@@ -26,10 +26,7 @@ export function Footer() {
           >
             LinkedIn
           </a>
-          <Link
-            to="/resume"
-            className="hover:text-primary transition-colors"
-          >
+          <Link to="/resume" className="hover:text-primary transition-colors">
             Resume
           </Link>
           <span>© {new Date().getFullYear()}</span>

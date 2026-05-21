@@ -39,4 +39,4 @@ Do not mix lockfiles. This project standardizes on npm via `package-lock.json` a
 - Confirm responsive layouts on mobile and desktop.
 - Confirm keyboard access for interactive elements.
 - Verify production build output.
-- Do not commit `node_modules`, `dist`, `.wrangler`, `.output`, or `.vinxi`.
+- Do not commit `node_modules`, `dist`, `.output`, `.vinxi`, or `.vercel`.

@@ -27,15 +27,16 @@ Large UI sections should live in `src/components/sections`, and reusable busines
 
 ## Rendering
 
-TanStack Start is configured directly in `vite.config.ts` with first-party Vite plugins for TanStack Start, React, Tailwind CSS, TypeScript path aliases, and Cloudflare.
+TanStack Start is configured directly in `vite.config.ts` with Vite plugins for TanStack Start, Nitro, React, Tailwind CSS, and TypeScript path aliases.
 
-`src/server.ts` wraps the SSR entry for error handling. Treat it as infrastructure code and keep UI concerns out of it.
+Nitro provides the deployment adapter layer for Vercel. Keep platform-specific deployment configuration out of UI components.
 
 ## Build Targets
 
 The production build emits:
 
 - `dist/client` for browser assets
-- `dist/server` for server/Cloudflare output
+- `.output` for Nitro server output
+- `.vercel/output` when running the Vercel build preset
 
 Do not commit generated build output or dependency folders.
