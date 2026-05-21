@@ -1,23 +1,72 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CaseLayout, Section, ImageBand } from "@/components/site/CaseLayout";
+import type { ReactNode } from "react";
+import {
+  CaseImagePlaceholder,
+  CaseLayout,
+  ImageBand,
+  Section,
+} from "@/components/site/CaseLayout";
+import designSystem from "@/assets/design-system.jpg";
+import heroStack from "@/assets/hero-stack.jpg";
 import projectMatcha from "@/assets/project-matcha.jpg";
 import workspace from "@/assets/workspace.jpg";
-import heroStack from "@/assets/hero-stack.jpg";
+
+const productPillars = [
+  ["Delivery & Pickup", "Flexible ordering flow"],
+  ["Loyalty Program", "Reward-based retention"],
+  ["E-Wallet", "Future-ready payment ecosystem"],
+  ["Store Locator", "Multi-branch accessibility"],
+];
+
+const challenges = [
+  [
+    "Multiple Ordering Flows",
+    "Supporting both delivery and pickup without creating navigation friction.",
+  ],
+  [
+    "Retention & Loyalty",
+    "Encouraging repeat engagement through tiered rewards and customer progression.",
+  ],
+  [
+    "Future Wallet Ecosystem",
+    "Preparing the experience for wallet integration and transaction visibility.",
+  ],
+];
+
+const mvpPriorities = [
+  [
+    "Delivery & Pickup",
+    "Core ordering experience focused on flexibility and convenience.",
+  ],
+  [
+    "Loyalty System",
+    "Retention-focused reward experience encouraging repeat purchases.",
+  ],
+  [
+    "User Account & Wallet",
+    "Foundation for payment tracking and future wallet integration.",
+  ],
+];
 
 export const Route = createFileRoute("/projects/mobile-ordering")({
   head: () => ({
     meta: [
-      { title: "Matcha — Mobile Ordering & Loyalty · Case study" },
+      {
+        title: "Premium Beverage Ordering & Loyalty Platform · Case study",
+      },
       {
         name: "description",
         content:
-          "Designing the delivery, pickup, and loyalty experience for a premium matcha brand.",
+          "A calm mobile ordering experience focused on delivery, pickup, loyalty rewards, and wallet integration.",
       },
-      { property: "og:title", content: "Matcha — Mobile Ordering & Loyalty" },
+      {
+        property: "og:title",
+        content: "Premium Beverage Ordering & Loyalty Platform",
+      },
       {
         property: "og:description",
         content:
-          "From ordering flow to loyalty mechanics — a calm, premium mobile product.",
+          "A product-focused case study for a calm ordering, loyalty, and wallet experience.",
       },
       { property: "og:url", content: "/projects/mobile-ordering" },
       { property: "og:type", content: "article" },
@@ -25,146 +74,256 @@ export const Route = createFileRoute("/projects/mobile-ordering")({
     ],
     links: [{ rel: "canonical", href: "/projects/mobile-ordering" }],
   }),
-  component: MatchaCase,
+  component: BeverageCase,
 });
 
-function MatchaCase() {
+function BeverageCase() {
   return (
     <CaseLayout
-      eyebrow="Case study · 02 · Consumer"
-      title="A calm, premium ordering experience for a matcha brand."
-      summary="Designed the MVP for a premium matcha brand's mobile product — delivery, pickup, loyalty, and a roadmap for an e-wallet — built to feel as considered as the product itself."
-      client="Matcha · Consumer brand"
-      role="Lead Product Designer"
-      year="2024"
+      eyebrow="CASE STUDY — 02"
+      title="Mobile Ordering & Loyalty App"
+      summary="Designed a mobile ordering experience focused on delivery, pickup, loyalty rewards, and wallet integration balancing operational usability with a calm and premium customer experience for modern lifestyle consumers."
+      client="Premium beverage ordering and loyalty platform"
+      role="Lead Designer"
+      year="2025"
+      metadata={[
+        ["Industry", "Food & Beverage"],
+        ["Role", "Lead Designer"],
+        ["Timeline", "2025"],
+      ]}
       heroImage={projectMatcha}
-      heroAlt="Matcha mobile ordering app"
-      nextSlug="/projects/erp"
-      nextTitle="Enterprise ERP System"
+      heroAlt="Premium beverage ordering mobile product mockup"
+      nextSlug="/projects/design-system"
+      nextTitle="Design System for Operational Products"
+      nextMeta="Design Systems • Components • Documentation"
     >
-      <Section number="01 — Overview" title="A brand-first mobile product.">
+      <Section
+        number="01 — Project context"
+        title="A brand-first mobile product."
+      >
         <p>
-          The brief was deceptively simple: build a mobile app that lets
-          customers order matcha for delivery or pickup, earn loyalty, and
-          eventually pay with a stored balance. The harder problem was tone —
-          the brand was built on slowness and ritual, and most ordering apps are
-          built on speed and noise.
+          The product was designed to make ordering more accessible and seamless
+          while supporting delivery, pickup, loyalty engagement, and future
+          wallet integration within a calm and minimal interface system.
         </p>
+        <FeatureGrid items={productPillars} />
       </Section>
 
       <Section
-        number="02 — Problem"
-        title="A consumer app that doesn't feel like one."
+        number="02 — The challenge"
+        title="A consumer app that doesn’t feel transactional."
       >
         <p>
-          Existing mobile ordering products optimize for transactions. This
-          brand needed an interface that felt like part of the ritual — quiet,
-          confident, and considered — without compromising on conversion.
+          The experience needed to support multiple customer journeys from
+          delivery and pickup to loyalty rewards and transaction history while
+          keeping the interface lightweight, calm, and easy to navigate.
         </p>
+        <p>
+          The challenge was balancing operational functionality with a premium
+          and approachable customer experience.
+        </p>
+        <FeatureGrid items={challenges} />
       </Section>
 
-      <Section number="03 — Goals" title="Three commitments for the MVP.">
-        <ul className="space-y-3">
-          {[
-            ["Calm", "A premium, restrained interface — no upsell theater."],
-            ["Clarity", "Ordering, pickup, and loyalty in 3 taps or fewer."],
-            ["Scale", "Foundation for an e-wallet and partner stores in v2."],
-          ].map(([k, v]) => (
-            <li
-              key={k}
-              className="grid grid-cols-12 gap-4 border-t hairline pt-3 last:border-b last:pb-3"
-            >
-              <span className="col-span-12 md:col-span-2 text-xs uppercase tracking-[0.14em] text-muted-foreground">
-                {k}
-              </span>
-              <span className="col-span-12 md:col-span-10">{v}</span>
-            </li>
-          ))}
-        </ul>
-      </Section>
-
-      <ImageBand src={projectMatcha} alt="Matcha app product shot" />
+      <ImageBand
+        src={projectMatcha}
+        alt="Delivery, pickup, category browsing, and ordering screens"
+      />
 
       <Section
-        number="04 — Workflow & IA"
-        title="A flat, ritual-friendly architecture."
+        number="03 — MVP structure"
+        title="Three priorities shaped the MVP."
       >
-        <p>
-          We resisted the urge to model the app around menus. Instead, the home
-          is a single ordering surface with three modes — delivery, pickup, and
-          reorder — each two taps from checkout. Loyalty lives in the same
-          surface, surfaced contextually instead of as a separate tab.
-        </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-border rounded-xl overflow-hidden border hairline mt-4">
-          {[
-            ["3", "Taps to checkout"],
-            ["1", "Home for all modes"],
-            ["v2", "E-wallet roadmap"],
-            ["12", "MVP screens"],
-          ].map(([n, l]) => (
-            <div key={l} className="bg-background p-5">
-              <p className="font-serif text-2xl tracking-tight">{n}</p>
-              <p className="mt-1 text-xs text-muted-foreground">{l}</p>
-            </div>
-          ))}
-        </div>
+        <PriorityTable items={mvpPriorities} />
       </Section>
 
-      <Section number="05 — UX thinking" title="Loyalty as a quiet companion.">
-        <p>
-          Most loyalty programs scream. Ours whispers: points appear after
-          confirmation, redemption is an inline toggle at checkout, and tier
-          progress lives in a single muted indicator. The reward is the ritual,
-          not the gamification.
-        </p>
-      </Section>
+      <SplitStory
+        number="04 — Ordering experience"
+        title="Designing around real customer flows."
+        image={workspace}
+        alt="Ordering, category, cart, and checkout interface compositions"
+      >
+        <FeatureList
+          items={[
+            "Quick navigation",
+            "Reduced decision friction",
+            "Clearer product discovery",
+            "Flexible delivery & pickup modes",
+            "Seamless browsing to checkout flow",
+            "Integrated store selection experience",
+          ]}
+        />
+      </SplitStory>
 
-      <ImageBand src={heroStack} alt="Flows and screens" />
+      <SplitStory
+        number="05 — Loyalty & retention"
+        title="Loyalty as a quiet retention layer."
+        image={heroStack}
+        alt="Loyalty tiers, rewards, member progression, and retention screens"
+        reverse
+      >
+        <FeatureList
+          items={[
+            "Visible progression",
+            "Unlockable loyalty tiers",
+            "Exclusive member rewards",
+            "Subtle retention experience",
+            "Calm customer progression",
+            "Long-term customer familiarity",
+          ]}
+        />
+      </SplitStory>
+
+      <SplitStory
+        number="06 — Wallet & transactions"
+        title="A payment experience built around clarity."
+        image={projectMatcha}
+        alt="Wallet, transaction history, payment flow, and rewards integration"
+      >
+        <FeatureList
+          items={[
+            "Clear payment visibility",
+            "Integrated transaction history",
+            "Future-ready wallet ecosystem",
+            "Support for top-ups & rewards",
+            "Transparent payment flows",
+            "Loyalty-connected purchases",
+          ]}
+        />
+      </SplitStory>
 
       <Section
-        number="06 — MVP prioritization"
-        title="Saying no to keep the launch honest."
+        number="07 — Visual system"
+        title="A visual system designed for calm interaction."
       >
         <p>
-          We mapped 38 candidate features to a 2×2 of effort × brand-fit and
-          shipped only the 12 that earned both axes. Stored payment, social
-          sharing, and partner discovery were deferred to v2 — the MVP needed to
-          ship calm, not crowded.
+          The interface used soft visual hierarchy, lightweight navigation, and
+          minimal UI patterns to support a calmer ordering experience aligned
+          with the brand’s lifestyle identity.
+        </p>
+        <p>
+          The design system focused on consistency, readability, and scalable
+          component behavior across multiple product flows.
         </p>
       </Section>
+
+      <ImageBand
+        src={designSystem}
+        alt="Typography, spacing, reusable components, color palette, and modular UI structure"
+      />
 
       <Section
-        number="07 — Solution & final UI"
-        title="A product that respects its own pace."
+        number="08 — Reflection"
+        title="Designing for evolving workflows."
       >
         <p>
-          The final interface uses generous spacing, restrained type, and the
-          brand's matcha palette as a structural element rather than decoration.
-          Photography is editorial — closer to a cookbook than an ad — and
-          motion is reserved for confirmations.
+          This project strengthened my understanding of balancing operational
+          workflows, customer usability, and scalable product systems within a
+          single ecosystem.
         </p>
-      </Section>
-
-      <ImageBand src={workspace} alt="Design process" />
-
-      <Section number="08 — Outcome" title="A launch that matched the brand.">
         <p>
-          The MVP shipped on time with a 41% week-one retention and an average
-          order frequency 2.1× the brand's web baseline. More importantly,
-          customer reviews used the words "calm," "clean," and "considered" —
-          the exact language the brand had asked for.
-        </p>
-      </Section>
-
-      <Section number="09 — Reflection" title="Brand is a system constraint.">
-        <p>
-          The strongest design choices on this project came from treating the
-          brand as a hard constraint, not a coat of paint. The interface
-          succeeds because every prioritization decision was filtered through
-          the same question the brand asks itself:{" "}
-          <em>does this respect the ritual?</em>
+          It also reinforced how product requirements evolve continuously,
+          especially when designing around ordering logic, loyalty systems, and
+          future payment experiences.
         </p>
       </Section>
     </CaseLayout>
+  );
+}
+
+function FeatureGrid({ items }: { items: string[][] }) {
+  return (
+    <div className="mt-6 grid gap-3 sm:grid-cols-2">
+      {items.map(([title, description]) => (
+        <div key={title} className="rounded-2xl border hairline p-4">
+          <p className="text-sm font-medium">{title}</p>
+          <p className="mt-2 text-sm text-muted-foreground">{description}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function PriorityTable({ items }: { items: string[][] }) {
+  return (
+    <div className="overflow-hidden rounded-2xl border hairline">
+      {items.map(([title, description]) => (
+        <div
+          key={title}
+          className="grid gap-3 border-b hairline p-4 last:border-b-0 md:grid-cols-[13rem_1fr] md:p-5"
+        >
+          <p className="text-sm font-medium">{title}</p>
+          <p className="text-sm text-muted-foreground">{description}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function FeatureList({ items }: { items: string[] }) {
+  return (
+    <ul className="space-y-3">
+      {items.map((item) => (
+        <li key={item} className="flex gap-3">
+          <span className="mt-2 size-1.5 shrink-0 rounded-full bg-primary" />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function SplitStory({
+  number,
+  title,
+  children,
+  image,
+  alt,
+  reverse = false,
+}: {
+  number: string;
+  title: string;
+  children: ReactNode;
+  image: string;
+  alt: string;
+  reverse?: boolean;
+}) {
+  return (
+    <section>
+      <div className="mx-auto max-w-[1400px] px-6 pt-24 lg:px-10 lg:pt-32">
+        <div className="grid grid-cols-12 items-center gap-6 lg:gap-10">
+          <div
+            className={
+              reverse
+                ? "col-span-12 lg:order-2 lg:col-span-5"
+                : "col-span-12 lg:col-span-5"
+            }
+          >
+            <p className="mb-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+              {number}
+            </p>
+            <h2 className="font-serif text-3xl tracking-tight lg:text-4xl">
+              {title}
+            </h2>
+            <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-foreground/80 text-pretty">
+              {children}
+            </div>
+          </div>
+          <div
+            className={
+              reverse
+                ? "col-span-12 lg:order-1 lg:col-span-7"
+                : "col-span-12 lg:col-span-7"
+            }
+          >
+            <CaseImagePlaceholder
+              ariaLabel={alt}
+              source={image}
+              className="aspect-[16/10]"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

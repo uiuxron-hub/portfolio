@@ -41,7 +41,7 @@ function ErpCase() {
       heroImage={projectErp}
       heroAlt="Enterprise ERP dashboard"
       nextSlug="/projects/mobile-ordering"
-      nextTitle="Matcha — Mobile Ordering & Loyalty"
+      nextTitle="Mobile Ordering & Loyalty App "
     >
       <Section number="01 — Overview" title="The system, in one paragraph.">
         <p>

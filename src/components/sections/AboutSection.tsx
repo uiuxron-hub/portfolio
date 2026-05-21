@@ -8,7 +8,7 @@ import { aboutFacts } from "@/features/portfolio/content";
 export function AboutSection() {
   return (
     <section id="about">
-      <Container className="pt-32 lg:pt-44">
+      <Container className="pt-20 lg:pt-28">
         <div className="grid grid-cols-12 items-center gap-y-12 lg:gap-x-0">
           <Reveal className="col-span-12 lg:col-span-6">
             <div className="flex justify-center">
