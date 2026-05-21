@@ -7,11 +7,11 @@ import {
   useScroll,
   useTransform,
 } from "motion/react";
-import { useId, useRef, useState } from "react";
-import type { ReactNode } from "react";
+import { useRef, useState } from "react";
 import heroBanner from "@/assets/hero-banner.png";
 import { Container } from "@/components/layout/Container";
 import { ProgressiveImage } from "@/components/site/ProgressiveImage";
+import { CursorTooltip } from "@/components/ui/tooltip";
 import { motionEase } from "@/lib/motion";
 
 const heroImageTooltip =
@@ -62,7 +62,6 @@ export function HeroSection() {
               transition={{ duration: 0.48, ease: motionEase }}
               className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-muted-foreground mb-8"
             >
-              <span className="h-px w-8 bg-foreground/40" />
               Product Designer | UI/UX Engineer
             </motion.div>
 
@@ -154,7 +153,10 @@ export function HeroSection() {
           </motion.div>
 
           <div className="col-span-12 lg:col-span-5 relative">
-            <HeroImageTooltip shouldReduceMotion={Boolean(shouldReduceMotion)}>
+            <CursorTooltip
+              content={heroImageTooltip}
+              shouldReduceMotion={Boolean(shouldReduceMotion)}
+            >
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -197,88 +199,10 @@ export function HeroSection() {
                   <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />
                 </motion.div>
               </motion.div>
-            </HeroImageTooltip>
+            </CursorTooltip>
           </div>
         </div>
       </Container>
     </section>
-  );
-}
-
-function HeroImageTooltip({
-  children,
-  shouldReduceMotion,
-}: {
-  children: ReactNode;
-  shouldReduceMotion: boolean;
-}) {
-  const tooltipId = useId();
-  const [tooltip, setTooltip] = useState({
-    visible: false,
-    x: 0,
-    y: 0,
-    horizontal: "right" as "left" | "right",
-    vertical: "bottom" as "top" | "bottom",
-  });
-
-  function updateTooltipPosition(clientX: number, clientY: number) {
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
-    const horizontal = clientX > viewportWidth - 360 ? "left" : "right";
-    const vertical = clientY > viewportHeight - 180 ? "top" : "bottom";
-
-    setTooltip({
-      visible: true,
-      x: clientX,
-      y: clientY,
-      horizontal,
-      vertical,
-    });
-  }
-
-  return (
-    <div
-      className="relative cursor-help focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
-      tabIndex={0}
-      aria-describedby={tooltip.visible ? tooltipId : undefined}
-      onPointerEnter={(event) =>
-        updateTooltipPosition(event.clientX, event.clientY)
-      }
-      onPointerMove={(event) =>
-        updateTooltipPosition(event.clientX, event.clientY)
-      }
-      onPointerLeave={() =>
-        setTooltip((current) => ({ ...current, visible: false }))
-      }
-      onFocus={(event) => {
-        const rect = event.currentTarget.getBoundingClientRect();
-        updateTooltipPosition(rect.left + rect.width * 0.55, rect.top + 24);
-      }}
-      onBlur={() => setTooltip((current) => ({ ...current, visible: false }))}
-    >
-      {children}
-      {tooltip.visible ? (
-        <motion.div
-          id={tooltipId}
-          role="tooltip"
-          initial={shouldReduceMotion ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.18, ease: motionEase }}
-          className="pointer-events-none fixed z-[60] max-w-[min(22rem,calc(100vw-2rem))] rounded-lg border hairline bg-background/95 px-4 py-3 text-sm leading-relaxed text-foreground shadow-[0_18px_60px_-40px_var(--color-primary)] backdrop-blur-md"
-          style={{
-            left: tooltip.x,
-            top: tooltip.y,
-            transform: `translate(${
-              tooltip.horizontal === "left" ? "calc(-100% - 16px)" : "16px"
-            }, ${
-              tooltip.vertical === "top" ? "calc(-100% - 16px)" : "16px"
-            })`,
-          }}
-        >
-          {heroImageTooltip}
-        </motion.div>
-      ) : null}
-    </div>
   );
 }

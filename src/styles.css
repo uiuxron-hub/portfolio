@@ -55,6 +55,7 @@
   --duration-base: 480ms;
   --duration-fast: 280ms;
   --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+  --app-cursor: url("/cursor.svg") 5 5, auto;
 
   /* Warm editorial brand system */
   --background: #f6f1eb;
@@ -135,10 +136,43 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    cursor: var(--app-cursor);
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+  }
+
+  body *,
+  body *::before,
+  body *::after {
+    cursor: var(--app-cursor) !important;
+  }
+
+  @media (pointer: fine) {
+    body.custom-cursor-enabled,
+    body.custom-cursor-enabled *,
+    body.custom-cursor-enabled *::before,
+    body.custom-cursor-enabled *::after {
+      cursor: none !important;
+    }
+  }
+
+  .custom-cursor {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 2147483647;
+    width: 32px;
+    height: 32px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate3d(-100px, -100px, 0);
+    transform-origin: 5px 5px;
+    transition:
+      opacity 120ms var(--ease-editorial),
+      transform 110ms var(--ease-editorial);
+    will-change: transform;
   }
 
   ::selection {

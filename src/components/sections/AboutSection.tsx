@@ -1,5 +1,4 @@
 import portrait from "@/assets/portrait-roland.png";
-import workspace from "@/assets/workspace.jpg";
 import { Container } from "@/components/layout/Container";
 import { ProgressiveImage } from "@/components/site/ProgressiveImage";
 import { Reveal } from "@/components/site/Reveal";
@@ -9,9 +8,9 @@ export function AboutSection() {
   return (
     <section id="about">
       <Container className="pt-32 lg:pt-44">
-        <div className="grid grid-cols-12 gap-6 lg:gap-10">
-          <Reveal className="col-span-12 lg:col-span-5">
-            <div className="space-y-6 lg:sticky lg:top-28">
+        <div className="grid grid-cols-12 items-center gap-y-12 lg:gap-x-0">
+          <Reveal className="col-span-12 lg:col-span-6">
+            <div className="flex justify-center">
               <div className="group">
                 <ProgressiveImage
                   src={portrait}
@@ -19,42 +18,44 @@ export function AboutSection() {
                   loading="lazy"
                   width={1023}
                   height={1537}
-                  imgClassName="h-full w-full"
+                  className="mx-auto h-auto max-w-[20rem] overflow-visible sm:max-w-[24rem] lg:mx-0 lg:max-w-[27rem] xl:max-w-[30rem]"
+                  imgClassName="h-auto w-full object-contain"
                 />
               </div>
             </div>
           </Reveal>
 
-          <Reveal delay={0.1} className="col-span-12 lg:col-span-7 lg:pt-8">
+          <Reveal
+            delay={0.1}
+            className="col-span-12 w-full max-w-xl justify-self-center lg:col-span-6"
+          >
             <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-3">
               About Me
             </p>
             <h2 className="font-serif text-4xl lg:text-5xl tracking-tight leading-[1.05] text-balance">
-              I focus on transforming complex workflows into intuitive, scalable
-              digital experiences.
+              Designing products that make{" "}
+              <span className="text-primary">complex</span> things feel{" "}
+              <span className="text-primary">simple</span>.
             </h2>
 
             <div className="mt-10 space-y-5 text-[15px] leading-relaxed text-foreground/80 max-w-xl">
               <p>
-                I'm a product designer and UI/UX engineer with a background in
-                enterprise systems, operational tooling, and consumer products.
-                I think in systems and ship close to engineering — the work
-                isn't done when the file is pretty, it's done when it's running
-                in production.
+                I’m Ron — a Product Designer and UI/UX Engineer with 5 years of
+                experience designing operational systems, enterprise tools, and
+                digital products across different industries.
               </p>
               <p>
-                My practice sits at the intersection of{" "}
-                <em>
-                  workflow design, operational UX, and implementation awareness
-                </em>
-                . I work well with PMs, engineers, and stakeholders who care
-                about clarity over ceremony, and I've spent the last two years
-                integrating AI-assisted workflows into research, exploration,
-                and handoff.
+                I enjoy simplifying complex workflows into experiences that feel
+                intuitive, calm, and easy to use. My work sits between product
+                thinking, systems design, and real-world implementation working
+                closely with developers, stakeholders, and evolving product
+                needs.
               </p>
               <p>
-                I care about calm interfaces, honest hierarchy, and products
-                that respect the people doing the work behind them.
+                Outside of design, I enjoy films, anime, manga, and music quiet
+                spaces that allow me to slow down, breathe, and think more
+                creatively. A lot of my imagination and design thinking often
+                starts in those moments of solitude.
               </p>
             </div>
 

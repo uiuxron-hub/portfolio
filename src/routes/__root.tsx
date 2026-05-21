@@ -8,6 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 
+import { CustomCursor } from "@/components/site/CustomCursor";
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -109,6 +110,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
+        <CustomCursor />
         <Scripts />
       </body>
     </html>
