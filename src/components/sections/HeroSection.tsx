@@ -50,7 +50,7 @@ export function HeroSection() {
         <div className="grid w-full grid-cols-12 items-center gap-8 lg:gap-10">
           <motion.div
             style={{ y: shouldReduceMotion ? 0 : y, opacity }}
-            className="col-span-12 lg:col-span-7"
+            className="order-2 col-span-12 lg:order-1 lg:col-span-7"
           >
             <motion.div
               initial={
@@ -84,7 +84,7 @@ export function HeroSection() {
                   key={part}
                   className={
                     index === 1 || index === 3
-                      ? "inline-block italic text-primary"
+                      ? "inline-block italic text-primary max-lg:mr-2"
                       : "inline"
                   }
                   variants={{
@@ -133,7 +133,6 @@ export function HeroSection() {
                 className="motion-button group inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-medium hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <span>View Projects</span>
-                <ArrowRight className="motion-arrow size-4" />
               </Link>
               <Link
                 to="/resume"
@@ -152,7 +151,7 @@ export function HeroSection() {
             </motion.div>
           </motion.div>
 
-          <div className="col-span-12 lg:col-span-5 relative">
+          <div className="relative order-1 col-span-12 lg:order-2 lg:col-span-5">
             <CursorTooltip
               content={heroImageTooltip}
               shouldReduceMotion={Boolean(shouldReduceMotion)}

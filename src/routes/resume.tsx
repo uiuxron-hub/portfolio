@@ -30,8 +30,8 @@ export const Route = createFileRoute("/resume")({
 function ResumePage() {
   return (
     <PageShell>
-      <section className="border-b hairline bg-background">
-        <Container className="pt-16 pb-8 lg:pt-20 lg:pb-10">
+      <section className="bg-background">
+        <Container className="pt-10 pb-8 lg:pt-12 lg:pb-10">
           <Link
             to="/"
             className="motion-button inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
@@ -40,7 +40,7 @@ function ResumePage() {
             <span>Back home</span>
           </Link>
 
-          <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+          <div className="mt-5 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             <div>
               <div className="mb-5 flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
                 Resume
