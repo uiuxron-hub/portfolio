@@ -1,7 +1,5 @@
-import designSystem from "@/assets/design-system.jpg";
 import projectErp from "@/assets/project-erp.jpg";
-import projectMatcha from "@/assets/project-matcha.jpg";
-import workflowDiagram from "@/assets/workflow-diagram.jpg";
+import projectMobileOrdering from "@/assets/home-page.png";
 import type {
   ExperienceEntry,
   LabelValue,
@@ -43,29 +41,7 @@ export const selectedProjects: ProjectSummary[] = [
     tags: ["Consumer", "Mobile", "Loyalty"],
     role: "Lead Designer",
     year: "2025",
-    image: projectMatcha,
-  },
-  {
-    slug: "/projects/design-system",
-    title: "A design system for dense operational products.",
-    summary:
-      "A reusable interface foundation for dense internal tools. Defining tokens, component behavior, and documentation patterns for product and engineering teams.",
-    industry: "SaaS",
-    tags: ["Design System", "Components", "Documentation"],
-    role: "UX Engineer · Systems Design",
-    year: "2024",
-    image: designSystem,
-  },
-  {
-    slug: "/projects/workflow-automation",
-    title: "Turning manual handoffs into guided operational flows.",
-    summary:
-      "Turning manual handoffs into guided operational flows. Mapping complex states, exception handling, and approval paths into one coherent workspace.",
-    industry: "Operations",
-    tags: ["Workflow UX", "Automation", "Internal Tools"],
-    role: "Product Designer · UX Strategy",
-    year: "2023 — 2024",
-    image: workflowDiagram,
+    image: projectMobileOrdering,
   },
 ];
 
@@ -143,7 +119,3 @@ export const contactDetails: LabelValue[] = [
   ["Engagements", "Full-time · Contract"],
   ["Currently", "Available Q1 2026"],
 ] as const;
-
-export const portfolioImages = {
-  designSystem,
-};
