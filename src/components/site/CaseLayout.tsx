@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { Container } from "@/components/layout/Container";
 import { PageShell } from "@/components/layout/PageShell";
+import { ProgressiveImage } from "@/components/site/ProgressiveImage";
 import { Reveal } from "@/components/site/Reveal";
 import { cn } from "@/lib/utils";
 
@@ -183,17 +184,20 @@ export function CaseImagePlaceholder({
 }) {
   return (
     <div
-      role="img"
-      aria-label={ariaLabel}
       data-source={source}
       className={cn(
-        "grid place-items-center overflow-hidden rounded-2xl border hairline bg-secondary/50 shadow-[0_24px_80px_-64px_var(--color-primary)]",
+        "overflow-hidden rounded-2xl border hairline bg-secondary/50 shadow-[0_24px_80px_-64px_var(--color-primary)]",
         className,
       )}
     >
-      <span className="rounded-full border hairline bg-background/80 px-4 py-2 text-xs uppercase tracking-[0.18em] text-muted-foreground">
-        IN PROGRESS
-      </span>
+      <ProgressiveImage
+        src={source}
+        alt={ariaLabel}
+        loading="lazy"
+        width={1600}
+        height={1000}
+        imgClassName="h-full w-full object-cover"
+      />
     </div>
   );
 }

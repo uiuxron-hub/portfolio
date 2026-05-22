@@ -6,10 +6,12 @@ import {
   ImageBand,
   Section,
 } from "@/components/site/CaseLayout";
-import designSystem from "@/assets/design-system.jpg";
-import heroStack from "@/assets/hero-stack.jpg";
-import projectMatcha from "@/assets/project-matcha.jpg";
-import workspace from "@/assets/workspace.jpg";
+import designSystem from "@/assets/overall-output.png";
+import heroStack from "@/assets/loyalty.png";
+import projectMatcha from "@/assets/zoom-meeting.png";
+import projectMobileOrdering from "@/assets/home-page.png";
+import walletImage from "@/assets/wallet.png";
+import workspace from "@/assets/order-menu.png";
 
 const productPillars = [
   ["Delivery & Pickup", "Flexible ordering flow"],
@@ -70,7 +72,7 @@ export const Route = createFileRoute("/projects/mobile-ordering")({
       },
       { property: "og:url", content: "/projects/mobile-ordering" },
       { property: "og:type", content: "article" },
-      { property: "og:image", content: projectMatcha },
+      { property: "og:image", content: projectMobileOrdering },
     ],
     links: [{ rel: "canonical", href: "/projects/mobile-ordering" }],
   }),
@@ -91,11 +93,11 @@ function BeverageCase() {
         ["Role", "Lead Designer"],
         ["Timeline", "2025"],
       ]}
-      heroImage={projectMatcha}
+      heroImage={projectMobileOrdering}
       heroAlt="Premium beverage ordering mobile product mockup"
-      nextSlug="/projects/design-system"
-      nextTitle="Design System for Operational Products"
-      nextMeta="Design Systems • Components • Documentation"
+      nextSlug="/projects/erp"
+      nextTitle="Rebuilding an Operational ERP"
+      nextMeta="Logistics • Enterprise • Operational UX"
     >
       <Section
         number="01 — Project context"
@@ -177,7 +179,7 @@ function BeverageCase() {
       <SplitStory
         number="06 — Wallet & transactions"
         title="A payment experience built around clarity."
-        image={projectMatcha}
+        image={walletImage}
         alt="Wallet, transaction history, payment flow, and rewards integration"
       >
         <FeatureList
