@@ -21,6 +21,7 @@ export function CaseLayout({
   nextSlug,
   nextTitle,
   nextMeta,
+  heroImageClassName,
 }: {
   eyebrow: string;
   title: string;
@@ -35,6 +36,7 @@ export function CaseLayout({
   nextSlug: string;
   nextTitle: string;
   nextMeta?: string;
+  heroImageClassName?: string;
 }) {
   const caseMetadata = metadata ?? [
     ["Client", client],
@@ -55,7 +57,7 @@ export function CaseLayout({
             Back to work
           </Link>
 
-          <div className="grid grid-cols-12 gap-6 lg:gap-10 items-end mb-12">
+          <div className="grid grid-cols-12 gap-y-10 gap-x-6 lg:gap-x-10 items-end mb-16 lg:mb-24">
             <div className="col-span-12 lg:col-span-8">
               <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-4">
                 {eyebrow}
@@ -63,7 +65,7 @@ export function CaseLayout({
               <h1 className="font-serif text-[clamp(2.4rem,5.2vw,4.6rem)] leading-[1.04] tracking-[-0.02em] text-balance">
                 {title}
               </h1>
-              <p className="mt-6 max-w-2xl text-[15px] text-muted-foreground text-pretty">
+              <p className="mt-8 max-w-2xl text-[15px] leading-relaxed text-muted-foreground text-pretty">
                 {summary}
               </p>
             </div>
@@ -83,7 +85,7 @@ export function CaseLayout({
             <CaseImagePlaceholder
               ariaLabel={heroAlt}
               source={heroImage}
-              className="aspect-[16/10]"
+              className={cn("aspect-[16/10]", heroImageClassName)}
             />
           </Reveal>
         </Container>
@@ -92,27 +94,22 @@ export function CaseLayout({
       {children}
 
       <section>
-        <Container className="pt-32">
+        <Container className="pt-32 lg:pt-44">
           <Reveal>
             <Link
               to={nextSlug}
-              className="group block rounded-3xl border hairline p-8 lg:p-14 hover:border-primary/25 hover:bg-primary-soft transition-colors"
+              className="group block rounded-3xl border hairline p-8 transition-[background-color,border-color,box-shadow,transform] duration-500 ease-[var(--ease-editorial)] hover:-translate-y-1 hover:border-primary/25 hover:bg-primary-soft hover:shadow-[0_32px_100px_-72px_var(--color-primary)] lg:p-14"
             >
-              <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-3">
+              <p className="mb-5 text-xs uppercase tracking-[0.18em] text-muted-foreground">
                 Next case study
               </p>
-              <div className="flex items-end justify-between gap-6 flex-wrap">
-                <h3 className="font-serif text-3xl lg:text-5xl tracking-tight max-w-2xl">
+              <div className="flex flex-wrap items-end justify-between gap-8">
+                <h3 className="max-w-3xl font-serif text-4xl tracking-tight lg:text-6xl">
                   {nextTitle}
                 </h3>
-                {nextMeta ? (
-                  <p className="w-full text-sm text-muted-foreground">
-                    {nextMeta}
-                  </p>
-                ) : null}
                 <span className="inline-flex items-center gap-2 text-sm transition-colors group-hover:text-primary">
                   Read
-                  <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  <ArrowUpRight className="size-4 transition-transform duration-500 ease-[var(--ease-editorial)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </span>
               </div>
             </Link>
@@ -129,14 +126,18 @@ export function Section({
   number,
   title,
   children,
+  className,
+  contentClassName,
 }: {
   number: string;
   title: string;
   children: ReactNode;
+  className?: string;
+  contentClassName?: string;
 }) {
   return (
     <section>
-      <Container className="pt-24 lg:pt-32">
+      <Container className={cn("pt-24 lg:pt-32", className)}>
         <Reveal>
           <div className="grid grid-cols-12 gap-6 lg:gap-10 mb-10">
             <div className="col-span-12 lg:col-span-4">
@@ -147,7 +148,12 @@ export function Section({
                 {title}
               </h2>
             </div>
-            <div className="col-span-12 lg:col-span-8 lg:pt-2 text-[15px] text-foreground/80 leading-relaxed space-y-4 text-pretty">
+            <div
+              className={cn(
+                "col-span-12 lg:col-span-8 lg:pt-2 text-[15px] text-foreground/80 leading-relaxed space-y-4 text-pretty",
+                contentClassName,
+              )}
+            >
               {children}
             </div>
           </div>
@@ -157,15 +163,25 @@ export function Section({
   );
 }
 
-export function ImageBand({ src, alt }: { src: string; alt: string }) {
+export function ImageBand({
+  src,
+  alt,
+  className,
+  imageClassName,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  imageClassName?: string;
+}) {
   return (
     <section>
-      <Container className="pt-16">
+      <Container className={cn("pt-16", className)}>
         <Reveal>
           <CaseImagePlaceholder
             ariaLabel={alt}
             source={src}
-            className="aspect-[16/9]"
+            className={cn("aspect-[16/9]", imageClassName)}
           />
         </Reveal>
       </Container>
@@ -186,7 +202,7 @@ export function CaseImagePlaceholder({
     <div
       data-source={source}
       className={cn(
-        "overflow-hidden rounded-2xl border hairline bg-secondary/50 shadow-[0_24px_80px_-64px_var(--color-primary)]",
+        "group overflow-hidden rounded-2xl border hairline bg-secondary/50 transition-[border-color,transform] duration-700 ease-[var(--ease-editorial)] hover:-translate-y-0.5 hover:border-primary/20",
         className,
       )}
     >
@@ -196,7 +212,7 @@ export function CaseImagePlaceholder({
         loading="lazy"
         width={1600}
         height={1000}
-        imgClassName="h-full w-full object-cover"
+        imgClassName="h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-editorial)] group-hover:scale-[1.012]"
       />
     </div>
   );

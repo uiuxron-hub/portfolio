@@ -6,12 +6,14 @@ import {
   ImageBand,
   Section,
 } from "@/components/site/CaseLayout";
+import { Reveal } from "@/components/site/Reveal";
 import designSystem from "@/assets/overall-output.png";
 import heroStack from "@/assets/loyalty.png";
 import projectMatcha from "@/assets/zoom-meeting.png";
 import projectMobileOrdering from "@/assets/home-page.png";
 import walletImage from "@/assets/wallet.png";
 import workspace from "@/assets/order-menu.png";
+import { cn } from "@/lib/utils";
 
 const productPillars = [
   ["Delivery & Pickup", "Flexible ordering flow"],
@@ -95,9 +97,10 @@ function BeverageCase() {
       ]}
       heroImage={projectMobileOrdering}
       heroAlt="Premium beverage ordering mobile product mockup"
-      nextSlug="/projects/erp"
-      nextTitle="Rebuilding an Operational ERP"
-      nextMeta="Logistics • Enterprise • Operational UX"
+      heroImageClassName="aspect-[16/11] lg:aspect-[16/9] lg:scale-[1.015]"
+      nextSlug="/projects/operational-erp"
+      nextTitle="Rebuilding operational weld workflows"
+      nextMeta="Industrial Infrastructure • Operational UX • Workflow Systems"
     >
       <Section
         number="01 — Project context"
@@ -130,11 +133,14 @@ function BeverageCase() {
       <ImageBand
         src={projectMatcha}
         alt="Delivery, pickup, category browsing, and ordering screens"
+        className="max-w-[1320px] pt-20 lg:pt-28"
+        imageClassName="aspect-[4/3] sm:aspect-[16/10] lg:aspect-[16/8.6]"
       />
 
       <Section
         number="03 — MVP structure"
         title="Three priorities shaped the MVP."
+        className="lg:pt-40"
       >
         <PriorityTable items={mvpPriorities} />
       </Section>
@@ -144,6 +150,8 @@ function BeverageCase() {
         title="Designing around real customer flows."
         image={workspace}
         alt="Ordering, category, cart, and checkout interface compositions"
+        imageClassName="lg:aspect-[7/6]"
+        sectionClassName="lg:pt-36"
       >
         <FeatureList
           items={[
@@ -162,6 +170,8 @@ function BeverageCase() {
         title="Loyalty as a quiet retention layer."
         image={heroStack}
         alt="Loyalty tiers, rewards, member progression, and retention screens"
+        imageClassName="lg:aspect-[16/9]"
+        sectionClassName="lg:pt-44"
         reverse
       >
         <FeatureList
@@ -181,6 +191,9 @@ function BeverageCase() {
         title="A payment experience built around clarity."
         image={walletImage}
         alt="Wallet, transaction history, payment flow, and rewards integration"
+        imageClassName="lg:aspect-[5/4]"
+        sectionClassName="lg:pt-40"
+        textClassName="lg:pl-10"
       >
         <FeatureList
           items={[
@@ -212,23 +225,11 @@ function BeverageCase() {
       <ImageBand
         src={designSystem}
         alt="Typography, spacing, reusable components, color palette, and modular UI structure"
+        className="max-w-[1180px] pt-10 lg:pt-16"
+        imageClassName="aspect-[4/3] lg:aspect-[16/10]"
       />
 
-      <Section
-        number="08 — Reflection"
-        title="Designing for evolving workflows."
-      >
-        <p>
-          This project strengthened my understanding of balancing operational
-          workflows, customer usability, and scalable product systems within a
-          single ecosystem.
-        </p>
-        <p>
-          It also reinforced how product requirements evolve continuously,
-          especially when designing around ordering logic, loyalty systems, and
-          future payment experiences.
-        </p>
-      </Section>
+      <ReflectionSection />
     </CaseLayout>
   );
 }
@@ -281,6 +282,9 @@ function SplitStory({
   children,
   image,
   alt,
+  sectionClassName,
+  imageClassName,
+  textClassName,
   reverse = false,
 }: {
   number: string;
@@ -288,41 +292,84 @@ function SplitStory({
   children: ReactNode;
   image: string;
   alt: string;
+  sectionClassName?: string;
+  imageClassName?: string;
+  textClassName?: string;
   reverse?: boolean;
 }) {
   return (
     <section>
-      <div className="mx-auto max-w-[1400px] px-6 pt-24 lg:px-10 lg:pt-32">
-        <div className="grid grid-cols-12 items-center gap-6 lg:gap-10">
-          <div
-            className={
-              reverse
-                ? "col-span-12 lg:order-2 lg:col-span-5"
-                : "col-span-12 lg:col-span-5"
-            }
-          >
-            <p className="mb-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
-              {number}
-            </p>
-            <h2 className="font-serif text-3xl tracking-tight lg:text-4xl">
-              {title}
-            </h2>
-            <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-foreground/80 text-pretty">
-              {children}
+      <div
+        className={cn(
+          "mx-auto max-w-[1400px] px-6 pt-28 lg:px-10 lg:pt-32",
+          sectionClassName,
+        )}
+      >
+        <Reveal y={22} duration={0.72}>
+          <div className="grid grid-cols-12 items-center gap-y-10 gap-x-6 lg:gap-x-10">
+            <div
+              className={cn(
+                "col-span-12 lg:col-span-5",
+                reverse && "lg:order-2",
+                textClassName,
+              )}
+            >
+              <p className="mb-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                {number}
+              </p>
+              <h2 className="font-serif text-3xl tracking-tight lg:text-4xl">
+                {title}
+              </h2>
+              <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-foreground/80 text-pretty">
+                {children}
+              </div>
+            </div>
+            <div
+              className={
+                reverse
+                  ? "col-span-12 lg:order-1 lg:col-span-7"
+                  : "col-span-12 lg:col-span-7"
+              }
+            >
+              <CaseImagePlaceholder
+                ariaLabel={alt}
+                source={image}
+                className={cn("aspect-[16/10]", imageClassName)}
+              />
             </div>
           </div>
-          <div
-            className={
-              reverse
-                ? "col-span-12 lg:order-1 lg:col-span-7"
-                : "col-span-12 lg:col-span-7"
-            }
-          >
-            <CaseImagePlaceholder
-              ariaLabel={alt}
-              source={image}
-              className="aspect-[16/10]"
-            />
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function ReflectionSection() {
+  return (
+    <section className="pt-36 lg:pt-52">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
+        <div className="border-t hairline">
+          <div className="mx-auto max-w-3xl pt-12 lg:pt-16">
+            <Reveal y={18} duration={0.78}>
+              <p className="mb-5 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                08 — Reflection
+              </p>
+              <h2 className="font-serif text-[clamp(2.25rem,4vw,4.15rem)] leading-[1.08] tracking-tight text-balance">
+                Designing for evolving workflows.
+              </h2>
+              <div className="mt-8 space-y-6 text-[17px] leading-[1.85] text-foreground/78 text-pretty">
+                <p>
+                  This project strengthened my understanding of balancing
+                  operational workflows, customer usability, and scalable
+                  product systems within a single ecosystem.
+                </p>
+                <p>
+                  It also reinforced how product requirements evolve
+                  continuously, especially when designing around ordering logic,
+                  loyalty systems, and future payment experiences.
+                </p>
+              </div>
+            </Reveal>
           </div>
         </div>
       </div>

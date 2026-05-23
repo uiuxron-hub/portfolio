@@ -252,39 +252,12 @@
     transform: scaleX(1);
   }
   .project-card {
-    --cursor-x: 50%;
-    --cursor-y: 50%;
     transform: translateZ(0);
-    transition:
-      border-color var(--duration-base) var(--ease-editorial),
-      box-shadow var(--duration-base) var(--ease-editorial),
-      transform var(--duration-base) var(--ease-editorial);
+    transition: transform var(--duration-base) var(--ease-editorial);
     will-change: transform;
   }
-  .project-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: radial-gradient(
-      360px circle at var(--cursor-x) var(--cursor-y),
-      rgba(205, 70, 2, 0.16),
-      transparent 42%
-    );
-    opacity: 0;
-    transition: opacity var(--duration-base) var(--ease-editorial);
-  }
   .group\/card:hover .project-card {
-    border-color: color-mix(
-      in oklch,
-      var(--color-primary) 30%,
-      var(--color-hairline)
-    );
-    box-shadow: 0 24px 70px -56px var(--color-primary);
     transform: translateY(-2px);
-  }
-  .group\/card:hover .project-card::after {
-    opacity: 1;
   }
 }
 
