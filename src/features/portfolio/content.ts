@@ -1,4 +1,4 @@
-import projectErp from "@/assets/project-erp.jpg";
+import projectErp from "@/assets/weld-list.png";
 import projectMobileOrdering from "@/assets/home-page.png";
 import type {
   ExperienceEntry,
@@ -22,14 +22,14 @@ export const expertiseAreas = [
 
 export const selectedProjects: ProjectSummary[] = [
   {
-    slug: "/projects/erp",
-    title: "Rebuilding an operational ERP for 1,200 daily operators.",
+    slug: "/projects/operational-erp",
+    title: "Rebuilding operational weld workflows for industrial teams.",
     summary:
-      "Reimagining an operational workflow for a 1,200-person logistics company. Auditing 40+ screens, designing a unified system, and shipping with engineering.",
-    industry: "Logistics",
-    tags: ["Enterprise", "Operational UX", "Design System"],
-    role: "UX Engineer · Product UX",
-    year: "2024 — 2025",
+      "Focused operational UX work inside an evolving industrial ERP MVP, improving weld tracking workflows, blueprint visibility, bulk actions, and implementation-aware usability.",
+    industry: "Industrial Infrastructure",
+    tags: ["Enterprise", "Operational UX", "Workflow Systems"],
+    role: "UI/UX Engineer",
+    year: "2025 - 2026",
     image: projectErp,
   },
   {

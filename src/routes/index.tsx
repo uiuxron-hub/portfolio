@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect } from "react";
 import { PageShell } from "@/components/layout/PageShell";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { ContactSection } from "@/components/sections/ContactSection";
@@ -32,16 +31,6 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  useEffect(() => {
-    const navigationEntry = performance.getEntriesByType("navigation")[0] as
-      | PerformanceNavigationTiming
-      | undefined;
-
-    if (navigationEntry?.type === "reload") {
-      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-    }
-  }, []);
-
   return (
     <PageShell>
       <HeroSection />
