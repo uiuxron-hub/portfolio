@@ -8,6 +8,7 @@ import {
 import { EditorialReflection } from "@/components/site/EnterpriseCaseBlocks";
 import bulkEdit from "@/assets/bulk-edit.png";
 import projectErp from "@/assets/weld-list.png";
+import { absoluteUrl } from "@/lib/seo";
 import {
   auditHighlights,
   bulkWorkflowHighlights,
@@ -40,11 +41,26 @@ export const Route = createFileRoute("/projects/operational-erp")({
         content:
           "Operational ERP UX case study focused on weld management MVP workflows, blueprint visibility, approvals, bulk edit/delete/allocation interactions, and implementation-aware usability refinement.",
       },
-      { property: "og:url", content: "/projects/operational-erp" },
+      { property: "og:url", content: absoluteUrl("/projects/operational-erp") },
       { property: "og:type", content: "article" },
-      { property: "og:image", content: projectErp },
+      { property: "og:image", content: absoluteUrl(projectErp) },
+      {
+        name: "twitter:title",
+        content: "Rebuilding operational weld workflows for industrial teams.",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Operational ERP UX case study focused on weld management MVP workflows, blueprint visibility, approvals, bulk edit/delete/allocation interactions, and implementation-aware usability refinement.",
+      },
+      { name: "twitter:image", content: absoluteUrl(projectErp) },
     ],
-    links: [{ rel: "canonical", href: "/projects/operational-erp" }],
+    links: [
+      {
+        rel: "canonical",
+        href: absoluteUrl("/projects/operational-erp"),
+      },
+    ],
   }),
   component: OperationalErpCase,
 });
@@ -58,7 +74,7 @@ function OperationalErpCase() {
       client="Industrial infrastructure ERP"
       role="UI/UX Engineer"
       year="2025 - 2026"
-      metadata={[...operationalMetadata]}
+      metadata={operationalMetadata}
       heroImage={projectErp}
       heroAlt="Existing operational ERP MVP dashboard with workflow-heavy interface"
       heroImageClassName="aspect-[16/10] lg:aspect-[16/8.8]"

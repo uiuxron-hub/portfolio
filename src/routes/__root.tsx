@@ -8,9 +8,12 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import { CustomCursor } from "@/components/site/CustomCursor";
+import logo from "@/assets/logo.png";
+import heroBanner from "@/assets/hero-banner.png";
+import { absoluteUrl } from "@/lib/seo";
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -88,13 +91,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         { name: "author", content: "Roland L. Guerra" },
         { property: "og:site_name", content: "Roland L. Guerra" },
         { property: "og:type", content: "website" },
+        { property: "og:image", content: absoluteUrl(heroBanner) },
         { name: "twitter:card", content: "summary_large_image" },
+        {
+          name: "twitter:title",
+          content: "Roland L. Guerra — Product Designer & UI/UX Engineer",
+        },
+        {
+          name: "twitter:description",
+          content:
+            "Product designer focused on intuitive systems, scalable workflows, and human-centered digital experiences.",
+        },
+        { name: "twitter:image", content: absoluteUrl(heroBanner) },
+        { name: "theme-color", content: "#f6f1eb" },
       ],
       links: [
         {
           rel: "stylesheet",
           href: appCss,
         },
+        { rel: "icon", type: "image/png", href: logo },
+        { rel: "apple-touch-icon", href: logo },
       ],
     }),
     shellComponent: RootShell,
@@ -112,7 +129,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "if('scrollRestoration' in history){history.scrollRestoration='manual';}",
+              "if('scrollRestoration' in history){history.scrollRestoration='auto';}",
           }}
         />
       </head>
@@ -138,6 +155,7 @@ function RootComponent() {
 
 function ScrollManager() {
   const location = useLocation();
+  const isInitialLoad = useRef(true);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -145,17 +163,32 @@ function ScrollManager() {
     }
 
     if ("scrollRestoration" in window.history) {
-      window.history.scrollRestoration = "manual";
+      window.history.scrollRestoration = "auto";
     }
 
     if (location.hash) {
       requestAnimationFrame(() => {
-        document.getElementById(location.hash)?.scrollIntoView();
+        const prefersReducedMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+
+        document
+          .getElementById(location.hash.replace(/^#/, ""))
+          ?.scrollIntoView({
+            behavior: prefersReducedMotion ? "auto" : "smooth",
+            block: "start",
+          });
       });
+      isInitialLoad.current = false;
       return;
     }
 
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    if (isInitialLoad.current) {
+      isInitialLoad.current = false;
+      return;
+    }
+
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }, [location.pathname, location.hash]);
 
   return null;

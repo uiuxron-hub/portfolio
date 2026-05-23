@@ -5,6 +5,7 @@ import {
   useMotionValueEvent,
   useReducedMotion,
   useScroll,
+  useSpring,
   useTransform,
 } from "motion/react";
 import { useRef, useState } from "react";
@@ -12,7 +13,7 @@ import heroBanner from "@/assets/hero-banner.png";
 import { Container } from "@/components/layout/Container";
 import { ProgressiveImage } from "@/components/site/ProgressiveImage";
 import { CursorTooltip } from "@/components/ui/tooltip";
-import { motionEase } from "@/lib/motion";
+import { motionEase, motionSpring } from "@/lib/motion";
 
 const heroImageTooltip =
   "The floating imagery reflects how I think while designing.";
@@ -26,7 +27,9 @@ export function HeroSection() {
     offset: ["start start", "end start"],
   });
   const y = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const smoothY = useSpring(y, motionSpring);
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.3]);
+  const smoothOpacity = useSpring(opacity, motionSpring);
   const headline = [
     "Designing products that turn",
     "complexity",
@@ -49,7 +52,10 @@ export function HeroSection() {
       <Container className="flex min-h-[calc(100svh-4rem)] items-center pt-10 pb-16 lg:pt-14 lg:pb-20">
         <div className="grid w-full grid-cols-12 items-center gap-8 lg:gap-10">
           <motion.div
-            style={{ y: shouldReduceMotion ? 0 : y, opacity }}
+            style={{
+              y: shouldReduceMotion ? 0 : smoothY,
+              opacity: shouldReduceMotion ? 1 : smoothOpacity,
+            }}
             className="order-2 col-span-12 lg:order-1 lg:col-span-7"
           >
             <motion.div
@@ -127,27 +133,25 @@ export function HeroSection() {
               transition={{ duration: 0.5, delay: 0.38, ease: motionEase }}
               className="mt-10 flex flex-wrap items-center gap-3"
             >
-              <Link
-                to="/"
-                hash="work"
+              <a
+                href="/#work"
                 className="motion-button group inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-medium hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <span>View Projects</span>
-              </Link>
+              </a>
               <Link
                 to="/resume"
                 className="motion-button inline-flex items-center gap-2 rounded-full border hairline px-5 py-2.5 text-sm text-muted-foreground hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 Resume
               </Link>
-              <Link
-                to="/"
-                hash="contact"
+              <a
+                href="/#contact"
                 className="motion-button group inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm text-muted-foreground hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <span>Contact</span>
                 <ArrowRight className="motion-arrow size-4" />
-              </Link>
+              </a>
             </motion.div>
           </motion.div>
 

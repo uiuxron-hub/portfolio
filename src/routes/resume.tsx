@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, Download, ExternalLink, FileText } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageShell } from "@/components/layout/PageShell";
+import heroBanner from "@/assets/hero-banner.png";
+import { absoluteUrl } from "@/lib/seo";
 
 const resumeUrl = "/resume/uiuxron_resume.pdf";
 
@@ -20,9 +22,17 @@ export const Route = createFileRoute("/resume")({
         content:
           "Product Designer and UI/UX Engineer focused on practical, human-centered digital product work.",
       },
-      { property: "og:url", content: "/resume" },
+      { property: "og:url", content: absoluteUrl("/resume") },
+      { property: "og:image", content: absoluteUrl(heroBanner) },
+      { name: "twitter:title", content: "Resume — Roland L. Guerra" },
+      {
+        name: "twitter:description",
+        content:
+          "Product Designer and UI/UX Engineer focused on practical, human-centered digital product work.",
+      },
+      { name: "twitter:image", content: absoluteUrl(heroBanner) },
     ],
-    links: [{ rel: "canonical", href: "/resume" }],
+    links: [{ rel: "canonical", href: absoluteUrl("/resume") }],
   }),
   component: ResumePage,
 });
@@ -45,9 +55,9 @@ function ResumePage() {
               <div className="mb-5 flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
                 Resume
               </div>
-              <h2 className="font-serif text-4xl lg:text-5xl tracking-tight leading-[1.05] text-balance">
+              <h1 className="font-serif text-4xl lg:text-5xl tracking-tight leading-[1.05] text-balance">
                 Let’s Collaborate
-              </h2>
+              </h1>
             </div>
 
             <div className="flex flex-wrap items-center gap-3">

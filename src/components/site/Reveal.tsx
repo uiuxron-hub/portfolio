@@ -1,6 +1,6 @@
 import { motion, useReducedMotion, type HTMLMotionProps } from "motion/react";
 import type { ReactNode } from "react";
-import { motionEase, revealViewport } from "@/lib/motion";
+import { motionEase, motionTiming, revealViewport } from "@/lib/motion";
 
 interface RevealProps extends HTMLMotionProps<"div"> {
   children: ReactNode;
@@ -13,7 +13,7 @@ interface RevealProps extends HTMLMotionProps<"div"> {
 export function Reveal({
   children,
   delay = 0,
-  duration = 0.64,
+  duration = motionTiming.slow,
   blur = 0,
   y = 16,
   ...rest

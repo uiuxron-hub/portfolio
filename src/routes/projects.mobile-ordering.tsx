@@ -14,6 +14,7 @@ import projectMobileOrdering from "@/assets/home-page.png";
 import walletImage from "@/assets/wallet.png";
 import workspace from "@/assets/order-menu.png";
 import { cn } from "@/lib/utils";
+import { absoluteUrl } from "@/lib/seo";
 
 const productPillars = [
   ["Delivery & Pickup", "Flexible ordering flow"],
@@ -72,11 +73,26 @@ export const Route = createFileRoute("/projects/mobile-ordering")({
         content:
           "A product-focused case study for a calm ordering, loyalty, and wallet experience.",
       },
-      { property: "og:url", content: "/projects/mobile-ordering" },
+      { property: "og:url", content: absoluteUrl("/projects/mobile-ordering") },
       { property: "og:type", content: "article" },
-      { property: "og:image", content: projectMobileOrdering },
+      { property: "og:image", content: absoluteUrl(projectMobileOrdering) },
+      {
+        name: "twitter:title",
+        content: "Premium Beverage Ordering & Loyalty Platform",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "A product-focused case study for a calm ordering, loyalty, and wallet experience.",
+      },
+      { name: "twitter:image", content: absoluteUrl(projectMobileOrdering) },
     ],
-    links: [{ rel: "canonical", href: "/projects/mobile-ordering" }],
+    links: [
+      {
+        rel: "canonical",
+        href: absoluteUrl("/projects/mobile-ordering"),
+      },
+    ],
   }),
   component: BeverageCase,
 });

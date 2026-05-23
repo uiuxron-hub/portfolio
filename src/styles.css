@@ -216,24 +216,14 @@
       transform var(--duration-fast) var(--ease-editorial);
     will-change: transform;
   }
-  .motion-button:hover {
-    transform: translateY(-1px) scale(1.015);
-    box-shadow: 0 14px 34px -26px var(--color-primary);
-  }
   .motion-button:active {
     transform: translateY(0) scale(0.985);
   }
   .motion-button > span {
     transition: transform var(--duration-fast) var(--ease-editorial);
   }
-  .motion-button:hover > span {
-    transform: translateX(1px);
-  }
   .motion-arrow {
     transition: transform var(--duration-base) var(--ease-editorial);
-  }
-  .motion-button:hover .motion-arrow {
-    transform: translateX(3px);
   }
   .nav-link::after {
     content: "";
@@ -248,7 +238,7 @@
     transform-origin: left;
     transition: transform var(--duration-fast) var(--ease-editorial);
   }
-  .nav-link:hover::after {
+  .nav-link:focus-visible::after {
     transform: scaleX(1);
   }
   .project-card {
@@ -256,8 +246,23 @@
     transition: transform var(--duration-base) var(--ease-editorial);
     will-change: transform;
   }
-  .group\/card:hover .project-card {
-    transform: translateY(-2px);
+  @media (hover: hover) and (pointer: fine) {
+    .motion-button:hover {
+      transform: translateY(-1px) scale(1.015);
+      box-shadow: 0 14px 34px -26px var(--color-primary);
+    }
+    .motion-button:hover > span {
+      transform: translateX(1px);
+    }
+    .motion-button:hover .motion-arrow {
+      transform: translateX(3px);
+    }
+    .nav-link:hover::after {
+      transform: scaleX(1);
+    }
+    .group\/card:hover .project-card {
+      transform: translateY(-2px);
+    }
   }
 }
 

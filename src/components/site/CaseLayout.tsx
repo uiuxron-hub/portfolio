@@ -29,7 +29,7 @@ export function CaseLayout({
   role: string;
   year: string;
   client: string;
-  metadata?: Array<[string, string]>;
+  metadata?: ReadonlyArray<readonly [string, string]>;
   heroImage: string;
   heroAlt: string;
   children: ReactNode;

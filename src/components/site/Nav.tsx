@@ -1,8 +1,9 @@
-import { Link } from "@tanstack/react-router";
-import { motion } from "motion/react";
+import { Link, useLocation } from "@tanstack/react-router";
+import { motion, useReducedMotion, useScroll, useSpring } from "motion/react";
 import { useEffect, useState } from "react";
 import logo from "@/assets/logo.png";
 import { Container } from "@/components/layout/Container";
+import { motionEase, scrollProgressSpring } from "@/lib/motion";
 
 const navItems = [
   { hash: "work", label: "Work" },
@@ -10,9 +11,18 @@ const navItems = [
   { hash: "process", label: "Process" },
 ] as const;
 
+type NavHash = (typeof navItems)[number]["hash"];
+
 export function Nav() {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+  const shouldReduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll();
+  const progressScaleX = useSpring(scrollYProgress, scrollProgressSpring);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>("work");
+  const [activeSection, setActiveSection] = useState<string>(
+    isHome ? "work" : "",
+  );
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -22,29 +32,65 @@ export function Nav() {
   }, []);
 
   useEffect(() => {
-    const sections = navItems
-      .map((item) => document.getElementById(item.hash))
-      .filter((section): section is HTMLElement => Boolean(section));
+    if (!isHome) {
+      setActiveSection("");
+      return;
+    }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleEntry = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    const getSectionPositions = () =>
+      navItems
+        .map((item) => {
+          const section = document.getElementById(item.hash);
+          return section
+            ? {
+                hash: item.hash,
+                top: section.getBoundingClientRect().top + window.scrollY,
+              }
+            : null;
+        })
+        .filter(
+          (section): section is { hash: NavHash; top: number } =>
+            section !== null,
+        );
 
-        if (visibleEntry?.target.id) {
-          setActiveSection(visibleEntry.target.id);
+    let animationFrame = 0;
+
+    const updateActiveSection = () => {
+      window.cancelAnimationFrame(animationFrame);
+      animationFrame = window.requestAnimationFrame(() => {
+        const sectionPositions = getSectionPositions();
+
+        if (!sectionPositions.length) {
+          return;
         }
-      },
-      {
-        rootMargin: "-35% 0px -50% 0px",
-        threshold: [0.08, 0.18, 0.32],
-      },
-    );
 
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
-  }, []);
+        const activationPoint = window.scrollY + 120;
+        const currentSection = sectionPositions.reduce(
+          (current, section) =>
+            activationPoint >= section.top ? section.hash : current,
+          sectionPositions[0].hash,
+        );
+
+        setActiveSection((current) =>
+          current === currentSection ? current : currentSection,
+        );
+      });
+    };
+
+    if (location.hash) {
+      setActiveSection(location.hash.replace(/^#/, ""));
+    }
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
+  }, [isHome, location.hash]);
 
   return (
     <header
@@ -74,15 +120,14 @@ export function Nav() {
             const isActive = activeSection === item.hash;
 
             return (
-              <Link
+              <a
                 key={item.hash}
-                to="/"
-                hash={item.hash}
-                aria-current={isActive ? "true" : undefined}
+                href={`/#${item.hash}`}
+                aria-current={isActive ? "location" : undefined}
                 className={`nav-link relative hidden md:inline pb-1 transition-colors ${
                   isActive
                     ? "text-primary"
-                    : "text-muted-foreground hover:text-primary"
+                    : "text-muted-foreground lg:hover:text-primary"
                 }`}
               >
                 {item.label}
@@ -90,22 +135,28 @@ export function Nav() {
                   <motion.span
                     layoutId="active-nav-indicator"
                     className="absolute inset-x-0 -bottom-0.5 h-px bg-primary"
-                    transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.32, ease: motionEase }}
                   />
                 ) : null}
-              </Link>
+              </a>
             );
           })}
-          <Link
-            to="/"
-            hash="contact"
-            className="motion-button inline-flex items-center gap-2 rounded-full border hairline px-3.5 py-1.5 hover:bg-available/5 hover:border-available/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          <a
+            href="/#contact"
+            className="motion-button inline-flex items-center gap-2 rounded-full border hairline px-3.5 py-1.5 lg:hover:bg-available/5 lg:hover:border-available/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-available" />
             Available
-          </Link>
+          </a>
         </nav>
       </Container>
+      <motion.div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-px origin-left bg-primary/30"
+        style={{
+          scaleX: shouldReduceMotion ? scrollYProgress : progressScaleX,
+        }}
+      />
     </header>
   );
 }

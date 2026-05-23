@@ -61,24 +61,40 @@ function CursorTooltip({
   const tooltipId = React.useId();
   const [tooltip, setTooltip] = React.useState({
     visible: false,
-    x: 0,
-    y: 0,
-    horizontal: "right" as "left" | "right",
-    vertical: "bottom" as "top" | "bottom",
+    left: 0,
+    top: 0,
   });
 
   function updateTooltipPosition(clientX: number, clientY: number) {
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
-    const horizontal = clientX > viewportWidth - 360 ? "left" : "right";
-    const vertical = clientY > viewportHeight - 180 ? "top" : "bottom";
+    const tooltipWidth = Math.min(352, viewportWidth - 32);
+    const tooltipHeight = 96;
+    const gap = 16;
+    const inset = 16;
+
+    let left =
+      clientX + gap + tooltipWidth > viewportWidth - inset
+        ? clientX - tooltipWidth - gap
+        : clientX + gap;
+    let top =
+      clientY + gap + tooltipHeight > viewportHeight - inset
+        ? clientY - tooltipHeight - gap
+        : clientY + gap;
+
+    left = Math.min(
+      Math.max(left, inset),
+      viewportWidth - tooltipWidth - inset,
+    );
+    top = Math.min(
+      Math.max(top, inset),
+      viewportHeight - tooltipHeight - inset,
+    );
 
     setTooltip({
       visible: true,
-      x: clientX,
-      y: clientY,
-      horizontal,
-      vertical,
+      left,
+      top,
     });
   }
 
@@ -115,11 +131,8 @@ function CursorTooltip({
           transition={{ duration: 0.18, ease: motionEase }}
           className={cn(tooltipContentVariants.floating, contentClassName)}
           style={{
-            left: tooltip.x,
-            top: tooltip.y,
-            transform: `translate(${
-              tooltip.horizontal === "left" ? "calc(-100% - 16px)" : "16px"
-            }, ${tooltip.vertical === "top" ? "calc(-100% - 16px)" : "16px"})`,
+            left: tooltip.left,
+            top: tooltip.top,
           }}
         >
           {content}
