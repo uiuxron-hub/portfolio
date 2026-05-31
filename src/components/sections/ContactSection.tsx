@@ -37,7 +37,7 @@ export function ContactSection() {
                   height={16}
                   className="size-4 brightness-0 invert"
                 />
-                <span>uiuxron@gmail.com</span>
+                <span className="animated-link">uiuxron@gmail.com</span>
               </a>
               <a
                 href="https://www.linkedin.com/in/rlguerra/"
@@ -52,7 +52,7 @@ export function ContactSection() {
                   height={16}
                   className="size-4 brightness-0 invert"
                 />
-                <span>LinkedIn</span>
+                <span className="animated-link">LinkedIn</span>
               </a>
               <a
                 href="https://www.behance.net/rlguerra"
@@ -67,7 +67,7 @@ export function ContactSection() {
                   height={16}
                   className="size-4 brightness-0 invert"
                 />
-                <span>Behance</span>
+                <span className="animated-link">Behance</span>
               </a>
             </div>
           </div>

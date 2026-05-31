@@ -30,6 +30,10 @@ export function HeroSection() {
   const smoothY = useSpring(y, motionSpring);
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.3]);
   const smoothOpacity = useSpring(opacity, motionSpring);
+  const complexityOffset = useTransform(scrollYProgress, [0, 1], [0, 3]);
+  const clarityOffset = useTransform(scrollYProgress, [0, 1], [0, -4]);
+  const smoothComplexityOffset = useSpring(complexityOffset, motionSpring);
+  const smoothClarityOffset = useSpring(clarityOffset, motionSpring);
   const headline = [
     "Designing products that turn",
     "complexity",
@@ -92,6 +96,13 @@ export function HeroSection() {
                     index === 1 || index === 3
                       ? "inline-block italic text-primary max-lg:mr-2"
                       : "inline"
+                  }
+                  style={
+                    index === 1
+                      ? { y: shouldReduceMotion ? 0 : smoothComplexityOffset }
+                      : index === 3
+                        ? { y: shouldReduceMotion ? 0 : smoothClarityOffset }
+                        : undefined
                   }
                   variants={{
                     hidden: shouldReduceMotion
@@ -170,36 +181,44 @@ export function HeroSection() {
                 }}
                 className="relative mx-auto aspect-[4/5] w-full max-w-[520px] lg:aspect-[5/6] lg:max-w-none"
               >
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 -z-10 overflow-visible"
+                >
+                  <span className="hero-particle hero-particle-a" />
+                  <span className="hero-particle hero-particle-b" />
+                  <span className="hero-particle hero-particle-c" />
+                  <span className="hero-particle hero-particle-d" />
+                  <span className="hero-particle hero-particle-e" />
+                  <span className="hero-particle hero-particle-f" />
+                  <span className="hero-particle hero-particle-g" />
+                </div>
                 <motion.div
                   animate={
                     shouldReduceMotion
                       ? undefined
                       : {
-                          y: [0, -6, 0],
                           rotate: isScrollingDown ? 2.5 : 0,
                         }
                   }
                   transition={{
-                    y: {
-                      duration: 7,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    },
                     rotate: {
                       duration: 0.45,
                       ease: motionEase,
                     },
                   }}
-                  className="h-full w-full origin-center overflow-hidden transform-gpu"
+                  className="h-full w-full origin-center transform-gpu"
                 >
-                  <ProgressiveImage
-                    src={heroBanner}
-                    alt="Roland L. Guerra"
-                    width={2568}
-                    height={2364}
-                    imgClassName="h-full w-full object-contain"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />
+                  <div className="hero-image-float relative h-full w-full overflow-hidden">
+                    <ProgressiveImage
+                      src={heroBanner}
+                      alt="Roland L. Guerra"
+                      width={2568}
+                      height={2364}
+                      imgClassName="h-full w-full object-contain"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />
+                  </div>
                 </motion.div>
               </motion.div>
             </CursorTooltip>

@@ -45,9 +45,9 @@ function ProjectCard({
     <Link
       to={slug}
       aria-label={`Open ${title} case study`}
-      className="group/card block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+      className="group/card block rounded-2xl transition-transform duration-200 ease-[var(--ease-editorial)] focus-visible:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
     >
-      <article className="project-card relative aspect-[4/3] overflow-hidden rounded-2xl border hairline bg-secondary md:aspect-[16/11]">
+      <article className="project-card relative aspect-[4/3] overflow-hidden rounded-2xl border hairline bg-secondary transition-[border-color,box-shadow,transform] duration-300 ease-[var(--ease-editorial)] group-hover/card:border-primary/25 group-hover/card:shadow-[0_24px_80px_-64px_var(--color-primary)] group-focus-visible/card:border-primary/25 group-focus-visible/card:shadow-[0_24px_80px_-64px_var(--color-primary)] md:aspect-[16/11]">
         <ProgressiveImage
           src={image}
           alt={title}

@@ -1,10 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 import { Container } from "@/components/layout/Container";
 import { PageShell } from "@/components/layout/PageShell";
 import { ProgressiveImage } from "@/components/site/ProgressiveImage";
 import { Reveal } from "@/components/site/Reveal";
+import { motionEase, revealViewport } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 export function CaseLayout({
@@ -38,6 +40,7 @@ export function CaseLayout({
   nextMeta?: string;
   heroImageClassName?: string;
 }) {
+  const shouldReduceMotion = useReducedMotion();
   const caseMetadata = metadata ?? [
     ["Client", client],
     ["Role", role],
@@ -59,24 +62,48 @@ export function CaseLayout({
 
           <div className="grid grid-cols-12 gap-y-10 gap-x-6 lg:gap-x-10 items-end mb-16 lg:mb-24">
             <div className="col-span-12 lg:col-span-8">
-              <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-4">
+              <motion.p
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.34, ease: motionEase }}
+                className="case-eyebrow text-xs uppercase tracking-[0.18em] text-muted-foreground mb-4"
+              >
                 {eyebrow}
-              </p>
-              <h1 className="font-serif text-[clamp(2.4rem,5.2vw,4.6rem)] leading-[1.04] tracking-[-0.02em] text-balance">
+              </motion.p>
+              <motion.h1
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.44, delay: 0.06, ease: motionEase }}
+                className="font-serif text-[clamp(2.4rem,5.2vw,4.6rem)] leading-[1.04] tracking-[-0.02em] text-balance"
+              >
                 {title}
-              </h1>
-              <p className="mt-8 max-w-2xl text-[15px] leading-relaxed text-muted-foreground text-pretty">
+              </motion.h1>
+              <motion.p
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.42, delay: 0.12, ease: motionEase }}
+                className="mt-8 max-w-2xl text-[15px] leading-relaxed text-muted-foreground text-pretty"
+              >
                 {summary}
-              </p>
+              </motion.p>
             </div>
             <div className="col-span-12 lg:col-span-4 grid grid-cols-3 lg:grid-cols-1 gap-4 lg:gap-3 text-sm">
-              {caseMetadata.map(([k, v]) => (
-                <div key={k}>
+              {caseMetadata.map(([k, v], index) => (
+                <motion.div
+                  key={k}
+                  initial={shouldReduceMotion ? false : { opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    duration: 0.34,
+                    delay: 0.16 + index * 0.06,
+                    ease: motionEase,
+                  }}
+                >
                   <p className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
                     {k}
                   </p>
                   <p className="mt-1">{v}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -198,9 +225,15 @@ export function CaseImagePlaceholder({
   source: string;
   className?: string;
 }) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
-    <div
+    <motion.div
       data-source={source}
+      initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.96 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={revealViewport}
+      transition={{ duration: 0.42, ease: motionEase }}
       className={cn(
         "group overflow-hidden rounded-2xl border hairline bg-secondary/50 transition-[border-color,transform] duration-700 ease-[var(--ease-editorial)] hover:-translate-y-0.5 hover:border-primary/20",
         className,
@@ -214,6 +247,6 @@ export function CaseImagePlaceholder({
         height={1000}
         imgClassName="h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-editorial)] group-hover:scale-[1.012]"
       />
-    </div>
+    </motion.div>
   );
 }

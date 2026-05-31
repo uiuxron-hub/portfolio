@@ -36,8 +36,12 @@ export function ExperienceSection() {
               {experienceEntries.map((entry, index) => (
                 <Reveal key={entry.role} delay={index * 0.05}>
                   <div className="group grid grid-cols-12 gap-4 border-b hairline py-7 transition-colors duration-500 ease-[var(--ease-editorial)] hover:bg-secondary/25 md:pl-6">
-                    <div className="col-span-12 md:col-span-3 text-xs text-muted-foreground tabular-nums pt-1 transition-transform duration-500 ease-[var(--ease-editorial)] group-hover:translate-x-1">
-                      {entry.year}
+                    <div className="col-span-12 pt-1 text-xs tabular-nums text-muted-foreground md:col-span-3">
+                      <Reveal delay={0.08} y={8} duration={0.3}>
+                        <span className="inline-block transition-transform duration-500 ease-[var(--ease-editorial)] group-hover:translate-x-1">
+                          {entry.year}
+                        </span>
+                      </Reveal>
                     </div>
                     <div className="col-span-12 space-y-4 md:col-span-9">
                       <h3 className="text-base font-medium">{entry.role}</h3>
@@ -50,13 +54,17 @@ export function ExperienceSection() {
 
                       {entry.tags ? (
                         <div className="flex max-w-3xl flex-wrap gap-2 pt-1">
-                          {entry.tags.map((tag) => (
-                            <span
+                          {entry.tags.map((tag, tagIndex) => (
+                            <Reveal
                               key={tag}
-                              className="rounded-full border hairline bg-background px-3 py-1 text-xs text-muted-foreground transition-colors duration-300 group-hover:border-primary/20 group-hover:text-foreground"
+                              delay={0.12 + tagIndex * 0.045}
+                              y={8}
+                              duration={0.3}
                             >
-                              {tag}
-                            </span>
+                              <span className="inline-flex rounded-full border hairline bg-background px-3 py-1 text-xs text-muted-foreground transition-[background-color,border-color,color,transform] duration-300 ease-[var(--ease-editorial)] hover:-translate-y-0.5 hover:border-primary/25 hover:bg-primary-soft group-hover:border-primary/20 group-hover:text-foreground">
+                                {tag}
+                              </span>
+                            </Reveal>
                           ))}
                         </div>
                       ) : null}

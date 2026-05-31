@@ -1,6 +1,8 @@
 export const motionEase = [0.16, 1, 0.3, 1] as const;
 
 export const motionTiming = {
+  quick: 0.18,
+  page: 0.28,
   fast: 0.28,
   base: 0.48,
   slow: 0.68,
@@ -27,4 +29,15 @@ export const revealViewport = {
 export const revealTransition = {
   duration: motionTiming.slow,
   ease: motionEase,
+} as const;
+
+export const pageTransition = {
+  duration: motionTiming.page,
+  ease: motionEase,
+} as const;
+
+export const microInteraction = {
+  hoverY: -3,
+  hoverScale: 1.02,
+  duration: motionTiming.quick,
 } as const;

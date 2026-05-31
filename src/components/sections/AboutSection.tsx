@@ -35,8 +35,14 @@ export function AboutSection() {
               title={
                 <>
                   Designing products that make{" "}
-                  <span className="text-primary">complex</span> things feel{" "}
-                  <span className="text-primary">simple</span>.
+                  <span className="animated-highlight text-primary">
+                    complex
+                  </span>{" "}
+                  things feel{" "}
+                  <span className="animated-highlight text-primary">
+                    simple
+                  </span>
+                  .
                 </>
               }
               className="mb-10"
@@ -65,13 +71,13 @@ export function AboutSection() {
             </div>
 
             <div className="mt-12 grid grid-cols-2 gap-y-8 gap-x-6 lg:max-w-xl">
-              {aboutFacts.map(([label, value]) => (
-                <div key={label}>
+              {aboutFacts.map(([label, value], index) => (
+                <Reveal key={label} delay={0.18 + index * 0.055} y={10}>
                   <p className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
                     {label}
                   </p>
                   <p className="mt-1 text-sm">{value}</p>
-                </div>
+                </Reveal>
               ))}
             </div>
           </Reveal>

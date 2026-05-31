@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import logo from "@/assets/logo.png";
 import { Container } from "@/components/layout/Container";
 import { motionEase, scrollProgressSpring } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 
 const navItems = [
   { hash: "work", label: "Work" },
@@ -25,11 +26,15 @@ export function Nav() {
   );
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => {
+      const heroThreshold = isHome ? window.innerHeight * 0.72 : 8;
+      setScrolled(window.scrollY > heroThreshold);
+    };
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isHome]);
 
   useEffect(() => {
     if (!isHome) {
@@ -94,13 +99,18 @@ export function Nav() {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 inset-x-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-200 ease-[var(--ease-editorial)] ${
         scrolled
-          ? "backdrop-blur-md bg-background/75 border-b hairline"
+          ? "backdrop-blur-md bg-background/80 border-b hairline"
           : "bg-transparent"
       }`}
     >
-      <Container className="h-16 flex items-center justify-between">
+      <Container
+        className={cn(
+          "flex items-center justify-between transition-[height] duration-200 ease-[var(--ease-editorial)]",
+          scrolled ? "h-14" : "h-16",
+        )}
+      >
         <Link
           to="/"
           aria-label="Roland L. Guerra home"

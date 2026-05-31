@@ -10,7 +10,8 @@ import {
   Rocket,
   TrendingUp,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useInView, useReducedMotion } from "motion/react";
 import type { ComponentType } from "react";
 import { Container } from "@/components/layout/Container";
 import { SectionHeader } from "@/components/layout/SectionHeader";
@@ -137,13 +138,30 @@ const processPhases: ProcessPhase[] = [
 ];
 
 export function ProcessSection() {
+  const sectionRef = useRef<HTMLElement>(null);
   const [expandedPhase, setExpandedPhase] = useState<string | null>(null);
+  const [activePhaseIndex, setActivePhaseIndex] = useState(0);
+  const [isLoopPaused, setIsLoopPaused] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
+  const isInView = useInView(sectionRef, { once: false, amount: 0.35 });
   const selectedPhase = processPhases.find(
     (phase) => phase.id === expandedPhase,
   );
 
+  useEffect(() => {
+    if (shouldReduceMotion || !isInView || isLoopPaused || expandedPhase) {
+      return;
+    }
+
+    const intervalId = window.setInterval(() => {
+      setActivePhaseIndex((current) => (current + 1) % processPhases.length);
+    }, 2600);
+
+    return () => window.clearInterval(intervalId);
+  }, [expandedPhase, isInView, isLoopPaused, shouldReduceMotion]);
+
   return (
-    <section id="process">
+    <section id="process" ref={sectionRef}>
       <Container className="pt-32 lg:pt-44">
         <Reveal>
           <SectionHeader
@@ -164,6 +182,9 @@ export function ProcessSection() {
                 <div key={phase.id} className="contents">
                   <ProcessPhaseButton
                     phase={phase}
+                    isActive={
+                      expandedPhase === phase.id || activePhaseIndex === index
+                    }
                     isExpanded={expandedPhase === phase.id}
                     isLast={index === processPhases.length - 1}
                     onClick={() =>
@@ -171,6 +192,16 @@ export function ProcessSection() {
                         current === phase.id ? null : phase.id,
                       )
                     }
+                    onFocus={() => {
+                      setIsLoopPaused(true);
+                      setActivePhaseIndex(index);
+                    }}
+                    onBlur={() => setIsLoopPaused(false)}
+                    onMouseEnter={() => {
+                      setIsLoopPaused(true);
+                      setActivePhaseIndex(index);
+                    }}
+                    onMouseLeave={() => setIsLoopPaused(false)}
                   />
 
                   {expandedPhase === phase.id ? (
@@ -261,14 +292,24 @@ function ProcessDetailPanel({
 
 function ProcessPhaseButton({
   phase,
+  isActive,
   isExpanded,
   isLast,
   onClick,
+  onBlur,
+  onFocus,
+  onMouseEnter,
+  onMouseLeave,
 }: {
   phase: ProcessPhase;
+  isActive: boolean;
   isExpanded: boolean;
   isLast: boolean;
   onClick: () => void;
+  onBlur: () => void;
+  onFocus: () => void;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
 }) {
   const Icon = phase.icon;
 
@@ -277,10 +318,14 @@ function ProcessPhaseButton({
       type="button"
       aria-expanded={isExpanded}
       onClick={onClick}
+      onBlur={onBlur}
+      onFocus={onFocus}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       className={cn(
         "group relative min-h-[11.5rem] rounded-2xl border hairline bg-background p-5 text-left transition-all duration-500 ease-[var(--ease-editorial)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-        isExpanded
-          ? "border-primary/45 shadow-[0_24px_70px_-56px_var(--color-primary)]"
+        isActive
+          ? "border-primary/35 bg-primary-soft/70 shadow-[0_24px_70px_-56px_var(--color-primary)]"
           : "hover:border-primary/25 hover:bg-primary-soft",
       )}
     >
@@ -288,7 +333,7 @@ function ProcessPhaseButton({
         <span
           className={cn(
             "grid size-12 shrink-0 place-items-center rounded-2xl transition-colors",
-            isExpanded
+            isActive
               ? "bg-primary text-primary-foreground"
               : "bg-secondary text-muted-foreground group-hover:bg-primary-soft group-hover:text-primary",
           )}
@@ -306,7 +351,9 @@ function ProcessPhaseButton({
       </p>
 
       <div className="mt-5 flex items-center justify-between gap-3 text-xs text-muted-foreground">
-        <span>{isExpanded ? "Viewing details" : "View details"}</span>
+        <span className="animated-link">
+          {isExpanded ? "Viewing details" : "View details"}
+        </span>
         <ChevronDown
           className={cn(
             "size-4 transition-transform duration-300",
