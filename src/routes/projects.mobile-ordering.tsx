@@ -109,7 +109,7 @@ function BeverageCase() {
       metadata={[
         ["Industry", "Food & Beverage"],
         ["Role", "Lead Designer"],
-        ["Timeline", "2025"],
+        ["Timeline", "3-4 Weeks"],
       ]}
       heroImage={projectMobileOrdering}
       heroAlt="Premium beverage ordering mobile product mockup"

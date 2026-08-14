@@ -6,7 +6,7 @@ export type CasePoint = {
 export const operationalMetadata = [
   ["Industry", "Industrial Infrastructure"],
   ["Role", "UI/UX Engineer"],
-  ["Timeline", "2025 - 2026"],
+  ["Timeline", "3 Months"],
 ] as const;
 
 export const joiningHighlights: CasePoint[] = [
